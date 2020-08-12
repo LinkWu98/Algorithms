@@ -1,4 +1,4 @@
-package project.gcs.entity;
+package project.gcs.common.entity;
 
 import lombok.Data;
 

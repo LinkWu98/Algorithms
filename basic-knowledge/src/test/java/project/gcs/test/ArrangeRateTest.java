@@ -5,8 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import project.gcs.common.DateUtils;
-import project.gcs.entity.TaskFlight;
+import project.gcs.common.util.DateUtils;
+import project.gcs.common.entity.TaskFlight;
 
 import java.util.*;
 import java.util.stream.Collectors;

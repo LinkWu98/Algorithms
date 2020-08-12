@@ -1,6 +1,4 @@
-package project.gcs.common;
-
-import org.junit.Test;
+package project.gcs.common.util;
 
 import java.util.Calendar;
 import java.util.Date;
