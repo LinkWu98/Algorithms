@@ -1,6 +1,5 @@
 # Project exclude paths
-/basic-knowledge/target/
+/target/
 .idea
 *.iml
-*.xmind
 *.pdf
