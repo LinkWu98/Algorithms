@@ -3,12 +3,10 @@ package cn.link.common;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.io.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 数组、集合工具类
@@ -72,6 +70,10 @@ public class ArrayUtil {
      * @return 稀疏数组
      */
     public static int[][] convert2dArrToSparseArr(int[][] secondDimensionArr, int invalidVal) {
+
+        if (secondDimensionArr == null) {
+            return null;
+        }
 
         //记录二维数组的:行、列
         int totalRow = secondDimensionArr.length;
@@ -160,7 +162,7 @@ public class ArrayUtil {
             return;
         }
 
-        System.out.println("==========SecondDimensionArr==========");
+        System.out.println("=====SecondDimensionArr=====");
 
         for (int[] innerArr : arr) {
 
@@ -186,20 +188,94 @@ public class ArrayUtil {
 
     }
 
-    public static void writeArr2File(int[][] arr, String filepath){
+    /**
+     * 将二维数组写入文件 (逗号分隔, 换行)
+     *
+     * @param arr      二维数组
+     * @param filepath 文件路径 TODO 使用正则判断格式
+     */
+    public static void write2dArrToFile(int[][] arr, String filepath) throws Exception {
 
-        try {
+        if (arr == null || StringUtils.isBlank(filepath)) {
+            return;
+        }
 
-            BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(filepath));
+        //将二维数组转为字符串
+        StringBuilder arrStringBuilder = new StringBuilder();
+        for (int[] innerArr : arr) {
 
-            out.close();
+            for (int j = 0; j < innerArr.length; j++) {
 
-        }catch (Exception e) {
-            e.printStackTrace();
+                //每一行末尾拼接 \r\n 换行符
+                if (j == innerArr.length - 1) {
+                    arrStringBuilder.append(innerArr[j]).append("\r\n");
+                    continue;
+                }
+
+                arrStringBuilder.append(innerArr[j]).append(",");
+
+            }
 
         }
 
+        byte[] arrStrBytes = arrStringBuilder.toString().getBytes();
+
+        BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(filepath, false));
+        out.write(arrStrBytes);
+        out.close();
 
     }
+
+    /**
+     * 从文件 (逗号分隔, 换行) 读取二维数组
+     *
+     * @param filepath 文件路径
+     * @return 读取到的二维数组
+     */
+    public static int[][] read2dArrFromFile(String filepath) throws Exception {
+
+        if (StringUtils.isBlank(filepath)) {
+            return null;
+        }
+
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(filepath));
+        //读到的行
+        String line;
+        //使用集合保存每一行
+        List<String> arrStrList = new ArrayList<>();
+        while (StringUtils.isNotBlank(line = bufferedReader.readLine())) {
+            arrStrList.add(line);
+        }
+
+        bufferedReader.close();
+
+        if (CollectionUtils.isEmpty(arrStrList)) {
+            return null;
+        }
+
+        //初始化数组
+        int row = arrStrList.size();
+        int col = arrStrList.get(0).split(",").length;
+        int[][] arr = new int[row][col];
+
+        //遍历集合，给二维数组赋值
+        for (int i = 0; i < arr.length; i++) {
+
+            // i 行的元素
+            String[] elements = arrStrList.get(i).split(",");
+
+            for (int j = 0; j < arr[i].length; j++) {
+
+                // i 行 j 列的元素
+                arr[i][j] = Integer.parseInt(elements[j]);
+
+            }
+
+        }
+
+        return arr;
+
+    }
+
 
 }

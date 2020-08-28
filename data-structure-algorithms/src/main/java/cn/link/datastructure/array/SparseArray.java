@@ -10,7 +10,7 @@ import java.util.Random;
  * 稀疏数组
  * <p>
  * 当一个数组中大部分元素为０，或者为同一个值的数组时，可以使用稀疏数组来保存该数组
- *
+ * <p>
  * 行 : 二维数组的有效元素个数 + 1(多一行记录二维数组的总行、列和有效元素个数)
  * 列 : 3 (记录二维数组的:行、列、值)
  *
@@ -31,6 +31,11 @@ public class SparseArray {
     public static final int INVALID_VAL = 0;
 
     /**
+     * 输出文件路径
+     */
+    public static final String FILEPATH = "K://test.txt";
+
+    /**
      * 二维 -> 稀疏
      */
     @Test
@@ -46,7 +51,7 @@ public class SparseArray {
      * 稀疏 -> 二维
      */
     @Test
-    public void sparseArr2secondDimensionArr(){
+    public void sparseArr2secondDimensionArr() {
 
         int[][] sparseArr = ArrayUtil.convert2dArrToSparseArr(SECOND_DIMENSION_ARRAY, INVALID_VAL);
         ArrayUtil.printSecondDimensionArr(sparseArr);
@@ -56,6 +61,22 @@ public class SparseArray {
 
 
     }
+
+    /**
+     * 将数组写入文件 ( 存档 )
+     * 将文件中数组读出 ( 读档 )
+     */
+    @Test
+    public void writeAndReadArr() throws Exception {
+
+        ArrayUtil.write2dArrToFile(SECOND_DIMENSION_ARRAY, FILEPATH);
+
+        int[][] arr = ArrayUtil.read2dArrFromFile(FILEPATH);
+
+        ArrayUtil.printSecondDimensionArr(arr);
+
+    }
+
 
     /**
      * 初始化一个 3/4 概率值是 无效值 的二维数组
