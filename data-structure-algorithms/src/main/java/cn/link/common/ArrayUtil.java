@@ -3,12 +3,10 @@ package cn.link.common;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.io.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 数组、集合工具类
@@ -45,7 +43,7 @@ public class ArrayUtil {
         sparseArr[0][1] = totalCol;
         sparseArr[0][2] = validNum;
 
-        //从第二行开始遍历
+        //从数组的第二行开始赋值
         for (int i = 1; i < sparseArr.length; i++) {
 
             if (StringUtils.isBlank(details.get(i - 1))) {
@@ -131,12 +129,12 @@ public class ArrayUtil {
 
         }
 
-        //二维数组其余元素赋无效值
+        //二维数组其余未初始化的元素赋无效值
         for (int i = 0; i < twoDimensionArr.length; i++) {
 
             for (int j = 0; j < twoDimensionArr[i].length; j++) {
 
-                //0 是O未初始化的默认值，即未赋值
+                //0 是未初始化的默认值，即未赋值
                 if (twoDimensionArr[i][j] == 0) {
                     twoDimensionArr[i][j] = invalidVal;
                 }
@@ -186,19 +184,127 @@ public class ArrayUtil {
 
     }
 
-    public static void writeArr2File(int[][] arr, String filepath){
+    /**
+     * 将二维数组写入文件 TODO test
+     *
+     * @param arr      二维数组
+     * @param fileName 文件路径
+     */
+    public static void writeArr2File(int[][] arr, String fileName) {
+
+        BufferedWriter writer = null;
 
         try {
 
-            BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(filepath));
+            writer = new BufferedWriter(new FileWriter(fileName, true));
+            StringBuilder sb = new StringBuilder();
 
-            out.close();
+            //将二维数组转为 String 字符串存入文本中
+            for (int[] row : arr) {
 
-        }catch (Exception e) {
+                for (int col : row) {
+
+                    sb.append(col).append(",");
+
+                }
+
+                writer.write(sb.toString());
+                writer.newLine();
+                writer.flush();
+
+            }
+
+
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 
         }
 
+    }
+
+    /**
+     * 读取保存在文件中的二维数组
+     *
+     * @param fileName 文件路径 TODO test
+     * @return 二维数组
+     */
+    public int[][] readArrFromFile(String fileName) {
+
+        LineNumberReader lineNumberReader = null;
+        BufferedReader reader = null;
+
+        try {
+
+            //1. 获取总行数 - rowNum
+            reader = new BufferedReader(new FileReader(fileName));
+            lineNumberReader = new LineNumberReader(new FileReader(fileName));
+            int rowNum = lineNumberReader.getLineNumber();
+
+            int colNum = 0;
+            String line;
+            List<String[]> rows = new ArrayList<>();
+            while ((line = reader.readLine()) != null) {
+
+                String[] colStrValArr = line.split(",");
+
+                if (colNum == 0) {
+                    //2. 获取总列数 - colNum
+                    colNum = colStrValArr.length;
+                }
+
+                rows.add(colStrValArr);
+
+            }
+
+            //3. 初始化二维数组
+            int[][] arr = new int[rowNum][colNum];
+
+            //4. 给二维数组的元素赋值
+            for (int i = 0; i < rows.size(); i++) {
+
+                String[] row = rows.get(i);
+
+                for (int j = 0; j < row.length; j++) {
+
+                    String col = row[j];
+                    arr[i][j] = Integer.parseInt(col);
+
+                }
+
+            }
+
+            return arr;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            try {
+                if (lineNumberReader != null) {
+                    lineNumberReader.close();
+                }
+
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return null;
 
     }
 
