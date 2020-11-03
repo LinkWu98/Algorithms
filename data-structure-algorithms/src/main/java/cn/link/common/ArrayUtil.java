@@ -188,32 +188,37 @@ public class ArrayUtil {
      * 将二维数组写入文件 TODO test
      *
      * @param arr      二维数组
-     * @param fileName 文件路径
+     * @param filePath 文件路径
      */
-    public static void writeArr2File(int[][] arr, String fileName) {
+    public static void writeArr2File(int[][] arr, String filePath) {
 
         BufferedWriter writer = null;
 
         try {
 
-            writer = new BufferedWriter(new FileWriter(fileName, true));
+            writer = new BufferedWriter(new FileWriter(filePath));
             StringBuilder sb = new StringBuilder();
 
             //将二维数组转为 String 字符串存入文本中
             for (int[] row : arr) {
 
-                for (int col : row) {
+                for (int j = 0; j < row.length; j++) {
 
-                    sb.append(col).append(",");
+                    int col = row[j];
+                    sb.append(col);
+                    //最后一行不加逗号
+                    if (j != row.length - 1) {
+                        sb.append(",");
+                    }
 
                 }
 
-                writer.write(sb.toString());
-                writer.newLine();
-                writer.flush();
+                //每行末尾的换行符 (根据操作系统的不同换行符也不同 )
+                sb.append(System.getProperty("line.separator"));
 
             }
 
+            writer.write(sb.toString());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -234,10 +239,10 @@ public class ArrayUtil {
     /**
      * 读取保存在文件中的二维数组
      *
-     * @param fileName 文件路径 TODO test
+     * @param filePath 文件路径
      * @return 二维数组
      */
-    public int[][] readArrFromFile(String fileName) {
+    public static int[][] read2dArrFromFile(String filePath) {
 
         LineNumberReader lineNumberReader = null;
         BufferedReader reader = null;
@@ -245,8 +250,9 @@ public class ArrayUtil {
         try {
 
             //1. 获取总行数 - rowNum
-            reader = new BufferedReader(new FileReader(fileName));
-            lineNumberReader = new LineNumberReader(new FileReader(fileName));
+            reader = new BufferedReader(new FileReader(filePath));
+            lineNumberReader = new LineNumberReader(new FileReader(filePath));
+            lineNumberReader.skip(Integer.MAX_VALUE);
             int rowNum = lineNumberReader.getLineNumber();
 
             int colNum = 0;

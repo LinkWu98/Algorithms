@@ -31,6 +31,11 @@ public class SparseArray {
     public static final int INVALID_VAL = 0;
 
     /**
+     * 二维数组的保存路径
+     */
+    public static final String FILE_PATH = "F:\\test\\2dArr.txt";
+
+    /**
      * 二维 -> 稀疏
      */
     @Test
@@ -89,5 +94,28 @@ public class SparseArray {
         ArrayUtil.printSecondDimensionArr(SECOND_DIMENSION_ARRAY);
 
     }
+
+    /**
+     * 将二维数组写入文件
+     */
+    @Test
+    public void write2dArrToFile(){
+
+        ArrayUtil.writeArr2File(SECOND_DIMENSION_ARRAY, FILE_PATH);
+
+    }
+
+
+    /**
+     * 从文件中读取二维数组
+     */
+    @Test
+    public void read2dArrFromFile(){
+
+        int[][] arrFromFile = ArrayUtil.read2dArrFromFile(FILE_PATH);
+        ArrayUtil.printSecondDimensionArr(arrFromFile);
+
+    }
+
 
 }
