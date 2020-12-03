@@ -1,4 +1,4 @@
-package cn.link.datastructure.array;
+package cn.link.data.structure.array;
 
 import cn.link.common.ArrayUtil;
 import org.junit.Before;
