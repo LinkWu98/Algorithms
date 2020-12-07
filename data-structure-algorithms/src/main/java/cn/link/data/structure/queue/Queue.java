@@ -16,12 +16,12 @@ public abstract class Queue<T> {
     /**
      * 队首的元素下标
      */
-    public int front = -1;
+    public int front = 0;
 
     /**
-     * 队末的元素下标
+     * 队末的元素下标 + 1
      */
-    public int rear = -1;
+    public int rear = 0;
 
     /**
      * 最大容量

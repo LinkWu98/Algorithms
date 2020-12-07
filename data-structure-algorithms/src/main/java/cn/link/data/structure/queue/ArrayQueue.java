@@ -7,8 +7,8 @@ package cn.link.data.structure.queue;
  * @description 基于数组实现的队列
  *
  * 问题：一次性数组，假溢出
- * front 队首 - 1
- * rear  队末
+ * front 队首
+ * rear  队末 + 1
  *
  *
  */
@@ -27,11 +27,11 @@ public class ArrayQueue<T> extends Queue<T> {
     public boolean add(T element) {
 
         //达到最大值
-        if (rear + 1 == maxSize) {
+        if (rear == maxSize) {
             throw new RuntimeException("队列已满!");
         }
 
-        elements[++rear] = element;
+        elements[rear++] = element;
         return true;
 
     }
@@ -42,7 +42,7 @@ public class ArrayQueue<T> extends Queue<T> {
     public Object remove() {
 
         //判空（没加过 / 拿空了）
-        if (rear == -1 || front == rear) {
+        if (front == rear) {
             throw new RuntimeException("队列为空!");
         }
 
