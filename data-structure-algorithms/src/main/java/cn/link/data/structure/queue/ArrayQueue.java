@@ -5,24 +5,30 @@ package cn.link.data.structure.queue;
  * @version 1.0
  * @date 2020/12/2 21:14
  * @description 基于数组实现的队列
+ *
+ * 问题：一次性数组，假溢出
+ * front 队首 - 1
+ * rear  队末
+ *
+ *
  */
 public class ArrayQueue<T> extends Queue<T> {
 
+    public ArrayQueue() {
+    }
+
+    public ArrayQueue(int maxSize) {
+        super(maxSize);
+    }
+
     /**
-     * 添加元素
+     * 入队
      */
     public boolean add(T element) {
 
         //达到最大值
         if (rear + 1 == maxSize) {
-            return false;
-        }
-
-        //第一次加元素
-        if (front == -1) {
-            elements[++front] = element;
-            rear++;
-            return true;
+            throw new RuntimeException("队列已满!");
         }
 
         elements[++rear] = element;
@@ -31,30 +37,21 @@ public class ArrayQueue<T> extends Queue<T> {
     }
 
     /**
-     * 移除元素
+     * 出队
      */
-    public boolean remove() {
+    public Object remove() {
 
-        //没加过元素
-        if (front == -1) {
-            return false;
+        //判空（没加过 / 拿空了）
+        if (rear == -1 || front == rear) {
+            throw new RuntimeException("队列为空!");
         }
 
-        //达到了边界
-        if (front == rear) {
-            elements[front] = null;
-            //初始化
-            front = -1;
-            rear = -1;
-            return true;
-        }
+        Object returnVal = elements[++front];
+        elements[front] = null;
 
-        elements[front++] = null;
-
-        return true;
+        return returnVal;
 
     }
-
 
 
 }

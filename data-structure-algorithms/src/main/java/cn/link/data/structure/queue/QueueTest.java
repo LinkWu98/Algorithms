@@ -11,9 +11,20 @@ import org.junit.Test;
 public class QueueTest {
 
     @Test
-    public void arrayQueueTest(){
+    public void arrayQueueTest() {
 
+        ArrayQueue<String> arrayQueue = new ArrayQueue<>(3);
 
+        System.out.println(arrayQueue.toString());
+        arrayQueue.add("1");
+        arrayQueue.add("1");
+        arrayQueue.add("1");
+        System.out.println(arrayQueue.toString());
+
+        arrayQueue.remove();
+
+        //假溢出
+        arrayQueue.add("1");
 
     }
 
