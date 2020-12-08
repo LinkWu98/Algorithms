@@ -9,9 +9,9 @@ package cn.link.data.structure.queue;
  * front 队首
  * rear  队末 + 1
  * <p>
- * 解决假溢出：核心就是改变队满判断，解决二义性，front 和 rear可以环形往后推
+ * 解决假溢出：核心就是改变队满判断，解决二义性
  * <p>
- * 本次选择空闲单元法，解决二义性
+ * 本次选择空闲单元法，将队满判断改为 (rear + 1) % maxSize == front ，解决二义性
  * 空闲单元默认为最后一个位置
  */
 public class CircleArrayQueue<T> extends Queue<T> {
@@ -30,16 +30,15 @@ public class CircleArrayQueue<T> extends Queue<T> {
      */
     public boolean add(Object element) {
 
-        //队满判断
+        //队满判断 (后一位是不是 front 的位置)
         if (((rear + 1) % maxSize) == front) {
             throw new RuntimeException("队列已满!");
         }
 
-        elements[rear++] = element;
-        //若 rear 已超过空闲单元，直接到跳第一个元素位置
-        if (rear == maxSize) {
-            rear = 0;
-        }
+        elements[rear] = element;
+
+        //后移一位
+        rear = (rear + 1) % maxSize;
 
         return true;
 
@@ -56,14 +55,33 @@ public class CircleArrayQueue<T> extends Queue<T> {
         }
 
         Object returnVal = elements[front];
-        elements[front++] = null;
+        elements[front] = null;
 
-        //若 front 已超过空闲单元，直接到跳第一个元素位置
-        if (front == maxSize) {
-            front = 0;
-        }
+        //后移一位
+        front = (front + 1) % maxSize;
 
         return returnVal;
+
+    }
+
+    /**
+     * 获取元素个数
+     */
+    public int size() {
+
+        return (rear - front + maxSize) % maxSize;
+
+    }
+
+    /**
+     * 打印队列
+     */
+    public void printQueue() {
+
+        //从 front 开始打印
+        for (int i = front; i < front + size(); i++) {
+            System.out.printf("arr[%d]=%d\n", i % maxSize, elements[i % maxSize]);
+        }
 
     }
 

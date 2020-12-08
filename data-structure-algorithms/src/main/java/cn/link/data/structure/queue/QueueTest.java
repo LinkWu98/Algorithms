@@ -32,13 +32,17 @@ public class QueueTest {
     @Test
     public void circleArrayQueueTest() {
 
-        CircleArrayQueue<String> circleArrayQueue = new CircleArrayQueue<>(3);
-        circleArrayQueue.add("1");
-        circleArrayQueue.add("1");
-        circleArrayQueue.add("1");
+        CircleArrayQueue<String> circleArrayQueue = new CircleArrayQueue<>(4);
+        circleArrayQueue.add(1);
+        circleArrayQueue.add(2);
+        circleArrayQueue.add(3);
+        circleArrayQueue.add(4);
+        System.out.println(circleArrayQueue.toString());
+        circleArrayQueue.printQueue();
+        circleArrayQueue.remove();
+        circleArrayQueue.add(1);
         System.out.println(circleArrayQueue.toString());
         circleArrayQueue.remove();
-        circleArrayQueue.add("1");
         circleArrayQueue.remove();
         circleArrayQueue.remove();
         circleArrayQueue.remove();
