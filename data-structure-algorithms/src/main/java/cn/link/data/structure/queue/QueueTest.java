@@ -2,6 +2,9 @@ package cn.link.data.structure.queue;
 
 import org.junit.Test;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 /**
  * @author Link
  * @version 1.0
@@ -48,6 +51,10 @@ public class QueueTest {
         circleArrayQueue.remove();
         System.out.println(circleArrayQueue.toString());
 
+    }
+
+    public static void main(String[] args) {
+        
     }
 
 }

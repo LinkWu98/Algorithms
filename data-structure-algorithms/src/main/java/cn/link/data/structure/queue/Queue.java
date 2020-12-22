@@ -38,6 +38,14 @@ public abstract class Queue<T> {
         elements = new Object[maxSize];
     }
 
+    public boolean add(T element) {
+        return false;
+    }
+
+    public Object remove() {
+        return null;
+    }
+
     @Override
     public String toString() {
 

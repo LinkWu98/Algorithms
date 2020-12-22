@@ -28,6 +28,7 @@ public class CircleArrayQueue<T> extends Queue<T> {
     /**
      * 入队
      */
+    @Override
     public boolean add(Object element) {
 
         //队满判断 (后一位是不是 front 的位置)
@@ -47,6 +48,7 @@ public class CircleArrayQueue<T> extends Queue<T> {
     /**
      * 出队
      */
+    @Override
     public Object remove() {
 
         //判空

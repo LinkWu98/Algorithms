@@ -24,6 +24,7 @@ public class ArrayQueue<T> extends Queue<T> {
     /**
      * 入队
      */
+    @Override
     public boolean add(T element) {
 
         //达到最大值
@@ -39,6 +40,7 @@ public class ArrayQueue<T> extends Queue<T> {
     /**
      * 出队
      */
+    @Override
     public Object remove() {
 
         //判空（没加过 / 拿空了）
