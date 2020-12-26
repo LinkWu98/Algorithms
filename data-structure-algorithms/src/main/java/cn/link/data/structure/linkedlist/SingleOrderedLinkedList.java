@@ -3,6 +3,9 @@ package cn.link.data.structure.linkedlist;
 /**
  * 单有序链表
  *
+ * 单链表 - 指向下一个
+ * 有序 - 元素按照插入顺序存放
+ *
  * @author Link50
  * @version 1.0
  * @date 2020/12/18 14:51
@@ -34,23 +37,31 @@ public class SingleOrderedLinkedList<T> {
     /**
      * 按指定排名插入节点到链表中
      * <p>
-     * 与重载的 add 割裂，仅作尝试，后续去不完善
+     * 单纯的遍历插入，数据量大时效率差
+     *
      */
     public void add(int rank, T data) {
+
+        Node<T> newNode = new Node<>(data, null, rank);
 
         Node<T> temp = HEAD;
         while (temp.next != null) {
 
-            //插入的 rank < 当前 rank
-            if (temp.next.rank < rank) {
+            //插入的 rank < 或 = temp.next.rank，插到 temp.next 前面
+            if (!(temp.next.rank < rank)) {
                 Node<T> nextTemp = temp.next;
-                temp.next.data = data;
-                temp.next.rank = rank;
+                temp.next = newNode;
+                newNode.next = nextTemp;
+                return;
             }
 
+            //插入的 rank > 当前，继续遍历
             temp = temp.next;
 
         }
+
+        //没下一个了，就在下一个插入
+        temp.next = newNode;
 
     }
 
@@ -99,6 +110,15 @@ public class SingleOrderedLinkedList<T> {
          * 节点在链表中的位置
          */
         private int rank;
+
+        public Node() {
+        }
+
+        public Node(T data, Node<T> next, int rank) {
+            this.data = data;
+            this.next = next;
+            this.rank = rank;
+        }
 
     }
 
