@@ -324,7 +324,7 @@ public class SingleOrderedLinkedList<T> {
 
             for (int i = index; i < nodes.length; i++) {
 
-                //大于，外部继续遍历
+                //大于，下标不变，外部继续遍历
                 if (nodes[i].no > temp.no) {
                     break;
                 }
