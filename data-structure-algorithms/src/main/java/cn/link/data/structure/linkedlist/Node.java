@@ -18,12 +18,12 @@ public class Node<T> {
     /**
      * 节点的编号，在链表中节点会按 no 排序
      */
-    protected int no;
+    protected Integer no;
 
     protected Node() {
     }
 
-    protected Node(T data, Node<T> next, int no) {
+    protected Node(T data, Node<T> next, Integer no) {
         this.data = data;
         this.next = next;
         this.no = no;

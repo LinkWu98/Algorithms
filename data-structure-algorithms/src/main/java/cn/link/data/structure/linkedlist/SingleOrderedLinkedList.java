@@ -251,7 +251,7 @@ public class SingleOrderedLinkedList<T> {
 
         while (temp != null) {
 
-            newHead.next = new Node<>(temp.data, newHead.next);
+            newHead.next = new Node<>(temp.data, newHead.next, temp.no);
 
             temp = temp.next;
 
