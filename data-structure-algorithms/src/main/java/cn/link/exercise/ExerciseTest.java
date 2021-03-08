@@ -2,9 +2,6 @@ package cn.link.exercise;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author Link50
  * @version 1.0
@@ -16,13 +13,17 @@ public class ExerciseTest {
      * 约瑟夫问题
      */
     @Test
-    public void josephTest(){
+    public void josephTest() throws Exception {
 
         Joseph joseph = new Joseph();
 
         int[] arr = new int[]{1, 2, 3, 4, 5, 6, 7};
+        Integer[] arr2 = new Integer[]{1, 2, 3, 4, 5, 6, 7};
 
-        System.out.println(joseph.getDequeueSequenceByArray(arr, 1, 2));
+        //数组解决
+        System.out.println(joseph.getDequeueSequenceByArray(arr, 1, 3));
+        //双向链表解决
+        System.out.println(joseph.getDequeueSequenceByDoublyLinkedList(arr2, 1, 3));
 
     }
 

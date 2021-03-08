@@ -13,6 +13,11 @@ public class Node<T> {
     /**
      * next域
      */
+    protected Node<T> prev;
+
+    /**
+     * next域
+     */
     protected Node<T> next;
 
     /**
@@ -25,6 +30,13 @@ public class Node<T> {
 
     protected Node(T data, Node<T> next, Integer no) {
         this.data = data;
+        this.next = next;
+        this.no = no;
+    }
+
+    public Node(T data, Node<T> prev, Node<T> next, Integer no) {
+        this.data = data;
+        this.prev = prev;
         this.next = next;
         this.no = no;
     }

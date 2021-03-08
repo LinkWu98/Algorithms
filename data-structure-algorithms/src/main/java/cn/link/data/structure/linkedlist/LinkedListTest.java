@@ -10,59 +10,59 @@ import org.junit.Test;
 public class LinkedListTest {
 
     @Test
-    public void singleLinkedListTest(){
+    public void singlyLinkedListTest(){
 
-        SingleOrderedLinkedList<String> singleOrderedLinkedList = new SingleOrderedLinkedList<>();
-        singleOrderedLinkedList.add("a");
-        singleOrderedLinkedList.add("b");
-        System.out.println(singleOrderedLinkedList.toString());
+        SinglyLinkedList<String> singlyLinkedList = new SinglyLinkedList<>();
+        singlyLinkedList.add("a");
+        singlyLinkedList.add("b");
+        System.out.println(singlyLinkedList.toString());
 
     }
 
     @Test
-    public void singleOrderedLinkedListTest(){
+    public void singlyOrderedLinkedListTest(){
 
-        SingleOrderedLinkedList<String> singleOrderedLinkedList = new SingleOrderedLinkedList<>();
-        singleOrderedLinkedList.add(1, "a");
+        SinglyLinkedList<String> singlyLinkedList = new SinglyLinkedList<>();
+        singlyLinkedList.add(1, "a");
         //替换
-        singleOrderedLinkedList.add(1, "b");
-        singleOrderedLinkedList.add(2, "c");
-        singleOrderedLinkedList.add(4, "d");
-        singleOrderedLinkedList.add(3, "e");
-        singleOrderedLinkedList.add(5, null);
-        singleOrderedLinkedList.add(6, "f");
-        System.out.println("正向打印:" + singleOrderedLinkedList.toString());
+        singlyLinkedList.add(1, "b");
+        singlyLinkedList.add(2, "c");
+        singlyLinkedList.add(4, "d");
+        singlyLinkedList.add(3, "e");
+        singlyLinkedList.add(5, null);
+        singlyLinkedList.add(6, "f");
+        System.out.println("正向打印:" + singlyLinkedList.toString());
         //反向遍历
-        System.out.println("反向打印:" + singleOrderedLinkedList.toStringFromLast());
+        System.out.println("反向打印:" + singlyLinkedList.toStringFromLast());
 
         //获取第n个
         int index = 0;
-        System.out.println("获取第"+ index +"个data: " + singleOrderedLinkedList.get(index));
+        System.out.println("获取第"+ index +"个data: " + singlyLinkedList.get(index));
 
         //获取倒数第n个
         int fromLast = 0;
-        System.out.println("获取倒数第"+ fromLast +"个data: " + singleOrderedLinkedList.getFromLast(fromLast));
+        System.out.println("获取倒数第"+ fromLast +"个data: " + singlyLinkedList.getFromLast(fromLast));
 
         //传统反转
-        singleOrderedLinkedList.reverseTraditional();
-        System.out.println("传统反转:" + singleOrderedLinkedList.toString());
+        singlyLinkedList.reverseTraditional();
+        System.out.println("传统反转:" + singlyLinkedList.toString());
 
         //头插法反转
-        singleOrderedLinkedList.reverseLikeStack();
-        System.out.println("头插法反转:" + singleOrderedLinkedList.toString());
+        singlyLinkedList.reverseLikeStack();
+        System.out.println("头插法反转:" + singlyLinkedList.toString());
 
         //map反转
-        singleOrderedLinkedList.reverseByMap();
-        System.out.println("map反转:" + singleOrderedLinkedList.toString());
+        singlyLinkedList.reverseByMap();
+        System.out.println("map反转:" + singlyLinkedList.toString());
 
         //有效节点个数
-        System.out.println("有效节点个数: " + singleOrderedLinkedList.available());
+        System.out.println("有效节点个数: " + singlyLinkedList.available());
 
         //删除
         int removeNo = 5;
-        singleOrderedLinkedList.remove(removeNo);
-        System.out.println("删除了no" + removeNo + "的元素: " + singleOrderedLinkedList.toString());
-        System.out.println("有效节点个数: " + singleOrderedLinkedList.available());
+        singlyLinkedList.remove(removeNo);
+        System.out.println("删除了no" + removeNo + "的元素: " + singlyLinkedList.toString());
+        System.out.println("有效节点个数: " + singlyLinkedList.available());
 
 
     }
@@ -82,6 +82,16 @@ public class LinkedListTest {
         while (stack.peek() != null) {
             System.out.println(stack.pop());
         }
+
+    }
+
+    /**
+     * 双向链表测试
+     */
+    @Test
+    public void doublyLinkedListTest(){
+
+
 
     }
 

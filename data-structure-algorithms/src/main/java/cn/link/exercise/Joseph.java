@@ -1,6 +1,6 @@
 package cn.link.exercise;
 
-import org.junit.Test;
+import cn.link.data.structure.linkedlist.DoublyLinkedList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,9 @@ public class Joseph {
     /**
      * 数组解决获取出队顺序
      *
-     * 实现方法有很多，这里借助辅助对象，标记已出队，只复制一次数组，效率高
+     * 核心思路：出队后标记，下次数过来直接跳过
+     *
+     * 实现方法有很多，这里借助辅助对象DequeueObj4Arr，标记已出队，只复制一次数组，效率高
      *
      * @param arr       连续的编号
      * @param startFrom 从哪个编号开始
@@ -90,6 +92,27 @@ public class Joseph {
         }
 
         return dequeSequence.toString();
+
+    }
+
+    /**
+     * 通过环形链表解决出队问题
+     *
+     * 核心思路:出队前，当前链表的上一个指向下一个
+     *
+     * @param arr       连续的编号
+     * @param startFrom 从哪个编号开始
+     * @param dequeueNo 数到几出队
+     */
+    public String getDequeueSequenceByDoublyLinkedList(Integer[] arr, int startFrom, int dequeueNo) throws Exception {
+
+        if (arr.length == 0 || startFrom <= 0 || dequeueNo <= 0) {
+            System.out.println("Wrong parameter.");
+        }
+
+        DoublyLinkedList<Integer> doublyLinkedList = new DoublyLinkedList<>();
+        doublyLinkedList.addAll(arr);
+        return doublyLinkedList.getJosephDequeueSequence(startFrom, dequeueNo);
 
     }
 

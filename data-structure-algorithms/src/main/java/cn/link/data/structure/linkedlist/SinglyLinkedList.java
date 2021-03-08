@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 单有序链表
+ * 单有序链表 (单链表)
  * <p>
  * 单链表 - 指向下一个
  * 有序 - 元素按照插入顺序存放
@@ -13,7 +13,7 @@ import java.util.Map;
  * @version 1.0
  * @date 2020/12/18 14:51
  */
-public class SingleOrderedLinkedList<T> {
+public class SinglyLinkedList<T> {
 
     /**
      * 头节点,不存数据
@@ -300,7 +300,7 @@ public class SingleOrderedLinkedList<T> {
      * 不使用数组，时间复杂度为 n * m
      * 使用数组为 2m + n(<=n)
      */
-    public void addAll(SingleOrderedLinkedList<T> linkedList) throws Exception {
+    public void addAll(SinglyLinkedList<T> linkedList) throws Exception {
 
         if (linkedList == null || linkedList.count == 0) {
             return;
