@@ -9,7 +9,10 @@ package cn.link.data.structure.linkedlist;
  */
 public class Stack<T> {
 
-    private Node<T> head;
+    /**
+     * 栈顶
+     */
+    private Node<T> top;
 
     public Stack() {
     }
@@ -20,15 +23,15 @@ public class Stack<T> {
     public void push(T element) {
 
         //第一次压栈，头就是该元素
-        if (head == null) {
-            head = new Node<>(element);
+        if (top == null) {
+            top = new Node<>(element);
             return;
         }
 
         //后续压栈，当前元素称为 head ，next 指向之前的 head
-        Node<T> temp = head;
-        head = new Node<>(element);
-        head.next = temp;
+        Node<T> temp = top;
+        top = new Node<>(element);
+        top.next = temp;
 
     }
 
@@ -37,11 +40,11 @@ public class Stack<T> {
      */
     public T peek() {
 
-        if (head == null) {
+        if (top == null) {
             return null;
         }
 
-        return head.data;
+        return top.data;
 
     }
 
@@ -50,13 +53,13 @@ public class Stack<T> {
      */
     public T pop() {
 
-        if (head == null) {
+        if (top == null) {
             return null;
         }
 
-        T returnValue = head.data;
+        T returnValue = top.data;
 
-        head = head.next;
+        top = top.next;
 
         return returnValue;
 

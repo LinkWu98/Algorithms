@@ -1,7 +1,7 @@
 package cn.link.data.structure.linkedlist;
 
 /**
- * 节点对象,每个节点由:数据域、next域组成
+ * 节点对象,每个节点由:prev域、数据域、next域组成
  */
 public class Node<T> {
 
