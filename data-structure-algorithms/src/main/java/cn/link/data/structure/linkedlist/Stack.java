@@ -14,6 +14,8 @@ public class Stack<T> {
      */
     private Node<T> top;
 
+    private int size;
+
     public Stack() {
     }
 
@@ -32,6 +34,8 @@ public class Stack<T> {
         Node<T> temp = top;
         top = new Node<>(element);
         top.next = temp;
+
+        size++;
 
     }
 
@@ -61,8 +65,14 @@ public class Stack<T> {
 
         top = top.next;
 
+        size--;
+
         return returnValue;
 
+    }
+
+    public int size() {
+        return size;
     }
 
 
