@@ -14,7 +14,7 @@ public class Stack<T> {
      */
     private Node<T> top;
 
-    private int size;
+    private int size = 0;
 
     public Stack() {
     }
@@ -23,6 +23,8 @@ public class Stack<T> {
      * 将 element 压入栈
      */
     public void push(T element) {
+
+        size++;
 
         //第一次压栈，头就是该元素
         if (top == null) {
@@ -34,8 +36,6 @@ public class Stack<T> {
         Node<T> temp = top;
         top = new Node<>(element);
         top.next = temp;
-
-        size++;
 
     }
 

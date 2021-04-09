@@ -27,4 +27,16 @@ public class ExerciseTest {
 
     }
 
+    /**
+     * 栈计算器测试
+     */
+    @Test
+    public void calculatorByStackTest(){
+
+        CalculatorByStack calculator = new CalculatorByStack();
+
+        System.out.println(calculator.calculate("2+3/2*2+1*2"));
+
+    }
+
 }

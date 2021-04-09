@@ -11,6 +11,8 @@ import java.util.regex.Pattern;
 /**
  * 栈实现综合计算器
  *
+ * 核心思路：判断符号优先级，<= 前者就前两个数字可以计算了，>前者就先计算后两个数字，括号也同样逻辑即可
+ *
  * @author link
  * @version 1.0
  * @date 2021/4/7 4:49 下午
@@ -45,9 +47,9 @@ public class CalculatorByStack {
         Stack<String> numStack = new Stack<>();
         //符号栈
         Stack<String> opStack = new Stack<>();
-        StringBuilder calculateFirstExpr = new StringBuilder();
 
         //括号先计算
+        StringBuilder calculateFirstExpr = new StringBuilder();
         boolean calculateFirstFlag = false;
         char[] chars = expr.toCharArray();
 
@@ -62,7 +64,7 @@ public class CalculatorByStack {
 
                 //数字
                 numStack.push(currentOp);
-                //当数字达到三个时，需要将后两个数字进行计算 (判断过第二个运算符优先级大于第一个)
+                //当数字达到三个时，需要将后两个数字进行计算 (判断过第二个运算符优先级大于第一个时才会继续，放入第三个数字)
                 if (numStack.size() == 3) {
                     this.calculateLastTwoAndPush(numStack, opStack.pop());
                 }
@@ -70,7 +72,7 @@ public class CalculatorByStack {
             } else {
 
                 //符号
-                //括号，需先计算，都放到一个表达式中
+                //遇到括号，需先计算，都放到一个表达式中
                 if (chars[i] == '(') {
                     calculateFirstFlag = true;
                 } else if (chars[i] == ')') {
@@ -91,8 +93,8 @@ public class CalculatorByStack {
                     continue;
                 }
 
-                //已存在符号，进行优先级比较
-                String prevOp = opStack.pop();
+                //已存在符号，进行优先级比较 (bug记录:此处若pop，然后优先级小于后者，最后计算会缺少运算符，空指针)
+                String prevOp = opStack.peek();
                 //当前的还是要 push 进去的
                 opStack.push(currentOp);
                 Integer prevPriority = OP_PRIORITY_MAP.get(prevOp);
@@ -125,7 +127,7 @@ public class CalculatorByStack {
 
     private BigDecimal executeCalculate(String operator, String secondNum, String firstNum) {
 
-        BigDecimal result = new BigDecimal("");
+        BigDecimal result = new BigDecimal("0");
 
         switch (operator) {
 
