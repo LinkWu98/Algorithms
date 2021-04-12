@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 /**
  * 栈实现综合计算器
- *
+ * <p>
  * 核心思路：判断符号优先级，<= 前者就前两个数字可以计算了，>前者就先计算后两个数字，括号也同样逻辑即可
  *
  * @author link
@@ -25,6 +25,13 @@ public class CalculatorByStack {
     private static final Map<String, Integer> OP_PRIORITY_MAP = new HashMap<>();
 
     private static final String NUM_REGEX = "^[0-9]*$";
+
+    /**
+     * 括号数量
+     */
+    private static int calculateFirstFromCount = 0;
+
+    private static int calculateFirstToCount = 0;
 
     static {
         OP_PRIORITY_MAP.put("+", 0);
@@ -51,19 +58,33 @@ public class CalculatorByStack {
         //括号先计算
         StringBuilder calculateFirstExpr = new StringBuilder();
         boolean calculateFirstFlag = false;
+        boolean prevCharIsNumFlag = false;
         char[] chars = expr.toCharArray();
 
         for (int i = 0; i < chars.length; i++) {
 
-            String currentOp = String.valueOf(chars[i]);
+            String currentChar = String.valueOf(chars[i]);
 
-            //6+1+1/3-(7-2*2)
             boolean isNumFlag = isNum(chars[i]);
 
             if (isNumFlag) {
 
+                //若上一个字符就是数字，多位数，拼接
+                if (!calculateFirstFlag && prevCharIsNumFlag) {
+                    String prevNum = numStack.pop();
+                    currentChar = prevNum.concat(currentChar);
+                }
+
+                prevCharIsNumFlag = true;
+
+                //括号内持续累加中...
+                if (calculateFirstFlag) {
+                    calculateFirstExpr.append(currentChar);
+                    continue;
+                }
+
                 //数字
-                numStack.push(currentOp);
+                numStack.push(currentChar);
                 //当数字达到三个时，需要将后两个数字进行计算 (判断过第二个运算符优先级大于第一个时才会继续，放入第三个数字)
                 if (numStack.size() == 3) {
                     this.calculateLastTwoAndPush(numStack, opStack.pop());
@@ -71,15 +92,32 @@ public class CalculatorByStack {
 
             } else {
 
+                prevCharIsNumFlag = false;
+
                 //符号
                 //遇到括号，需先计算，都放到一个表达式中
                 if (chars[i] == '(') {
+                    calculateFirstFromCount++;
                     calculateFirstFlag = true;
+                    continue;
                 } else if (chars[i] == ')') {
+                    calculateFirstToCount++;
+                    //多个前括号，到后括号不能提前结束进入计算
+                    if (calculateFirstFromCount != calculateFirstToCount) {
+                        calculateFirstExpr.append(chars[i]);
+                        continue;
+                    }
+
                     calculateFirstFlag = false;
                     //括号内累加完毕计算结果入栈
                     BigDecimal result = this.calculate(calculateFirstExpr.toString());
+                    //括号内表达式计算结束后清空字符串
+                    calculateFirstExpr = new StringBuilder("");
                     numStack.push(result.toString());
+                    if (numStack.size() == 3) {
+                        this.calculateLastTwoAndPush(numStack, opStack.pop());
+                    }
+                    continue;
                 }
 
                 //括号内持续累加中...
@@ -89,25 +127,29 @@ public class CalculatorByStack {
                 }
 
                 if (opStack.size() == 0) {
-                    opStack.push(currentOp);
+                    opStack.push(currentChar);
                     continue;
                 }
 
                 //已存在符号，进行优先级比较 (bug记录:此处若pop，然后优先级小于后者，最后计算会缺少运算符，空指针)
                 String prevOp = opStack.peek();
-                //当前的还是要 push 进去的
-                opStack.push(currentOp);
                 Integer prevPriority = OP_PRIORITY_MAP.get(prevOp);
-                Integer currentPriority = OP_PRIORITY_MAP.get(currentOp);
+                Integer currentPriority = OP_PRIORITY_MAP.get(currentChar);
 
                 //<=就直接计算前两个数字,计算完了再放进去
                 if (currentPriority <= prevPriority) {
-                    this.calculateLastTwoAndPush(numStack, prevOp);
-                    continue;
+                    this.calculateLastTwoAndPush(numStack, opStack.pop());
                 }
+
+                //当前的还是要 push 进去的
+                opStack.push(currentChar);
 
             }
 
+        }
+
+        if (numStack.size() == 1) {
+            return new BigDecimal(numStack.pop());
         }
 
         //最后，有两个数字，一个符号
