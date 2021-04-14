@@ -15,5 +15,5 @@
 | 稀疏数组（SparseArray）                                    |                  |
 | 环形链表（DoublyLinkedList）                               | 约瑟夫环         |
 | 队列（ArrayQueue - 单向队列、CircleArrayQueue - 环形队列） | 二义性、约瑟夫环 |
-| 栈（Stack）                                                | 计算器           |
+| 栈（Stack）                                                | 综合计算器       |
 

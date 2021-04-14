@@ -41,6 +41,7 @@ public class ExerciseTest {
 
         //中缀转后缀
         System.out.println(calculator.commonToRPN("1+((2+3)*4)-5"));
+        System.out.println(calculator.commonToRPN("1+2*3+4"));
 
 
     }

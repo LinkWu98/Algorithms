@@ -1,10 +1,12 @@
 package cn.link.exercise;
 
 import cn.link.data.structure.linkedlist.Stack;
+import org.apache.poi.ss.formula.functions.T;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.ToIntFunction;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -59,7 +61,7 @@ public class CalculatorByStack {
      * 中缀表达式转后缀表达式
      * <p>
      * 1+((2+3)*4)-5
-     *
+     * <p>
      * 如何做到括号先计算的，括号内
      *
      * @param commonExpr 中缀表达式
@@ -99,22 +101,14 @@ public class CalculatorByStack {
                 continue;
             }
 
-            //3. 遇到其他运算符，比较优先级，高就直接入主栈
+            //前一个符号是括号，不比较
             if ("(".equals(opStack.peek())) {
                 opStack.push(currentChar);
                 continue;
             }
 
-            Integer prevOpPriority = OP_PRIORITY_MAP.get(opStack.peek());
-            Integer currentPriority = OP_PRIORITY_MAP.get(currentChar);
-            //优先级大直接入主栈
-            if (currentPriority > prevOpPriority) {
-                overallStack.push(currentChar);
-            } else {
-                //优先级 <= 前者入主栈，后者入符号栈
-                overallStack.push(opStack.pop());
-                opStack.push(currentChar);
-            }
+            //3. 遇到其他运算符，比较优先级，高入符号栈，<=就将栈顶弹到主栈，然后继续与栈顶比较，重复此比较动作
+            this.compareOpPriorityAndPush(currentChar, opStack, overallStack);
 
         }
 
@@ -124,6 +118,38 @@ public class CalculatorByStack {
 
         overallStack.reverse();
         return overallStack.toString();
+
+    }
+
+    /**
+     * 逆波兰表达式比较符号优先级操作
+     *
+     * 优先级高保留，<=就将栈顶弹到主栈，然后继续与栈顶比较，重复此比较动作
+     *
+     * @param currentOp
+     * @param opStack
+     * @param overallStack
+     */
+    private void compareOpPriorityAndPush(String currentOp, Stack<String> opStack, Stack<String> overallStack) {
+
+        while (opStack.size() > 0) {
+
+            if ("(".equals(opStack.peek())) {
+                return;
+            }
+
+            Integer prevOpPriority = OP_PRIORITY_MAP.get(opStack.peek());
+            Integer currentPriority = OP_PRIORITY_MAP.get(currentOp);
+            if (currentPriority > prevOpPriority) {
+                opStack.push(currentOp);
+                return;
+            } else {
+                overallStack.push(opStack.pop());
+            }
+
+        }
+
+        opStack.push(currentOp);
 
     }
 
