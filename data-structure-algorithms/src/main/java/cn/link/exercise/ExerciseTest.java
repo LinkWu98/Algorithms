@@ -1,5 +1,6 @@
 package cn.link.exercise;
 
+import cn.link.data.structure.linkedlist.Stack;
 import org.junit.Test;
 
 /**
@@ -35,7 +36,12 @@ public class ExerciseTest {
 
         CalculatorByStack calculator = new CalculatorByStack();
 
-        System.out.println(calculator.calculate("(30+2)"));
+        //System.out.println(calculator.calculate("(30+2)"));
+        System.out.println(calculator.calculate("(2+3)+(4-5)*2"));
+
+        //中缀转后缀
+        System.out.println(calculator.commonToRPN("1+((2+3)*4)-5"));
+
 
     }
 

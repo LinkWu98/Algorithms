@@ -71,6 +71,32 @@ public class Stack<T> {
 
     }
 
+    public void reverse() {
+
+        Node<T> head = new Node<>();
+        while (top != null) {
+            head.next = new Node<>(top.data, head.next);
+            //舍弃原栈顶
+            this.top = this.top.next;
+        }
+
+        top = head.next;
+
+    }
+
+    public String toString() {
+
+        StringBuilder sb = new StringBuilder();
+        Node<T> temp = top;
+        while (temp != null) {
+            sb.append(temp.data).append(" ");
+            temp = temp.next;
+        }
+
+        return sb.toString();
+
+    }
+
     public int size() {
         return size;
     }

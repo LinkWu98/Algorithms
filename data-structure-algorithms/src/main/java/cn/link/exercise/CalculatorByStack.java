@@ -40,13 +40,104 @@ public class CalculatorByStack {
         OP_PRIORITY_MAP.put("/", 1);
     }
 
-    /*
-        例如: 6+1+1/3-(7-2*2)
 
-        1. 符号栈为空，直接入符号栈
-        2. 符号栈不为空，比较优先级，优先级<=前者，先算前面的，优先级>前者，放入数字后，算后面的
-        符号栈size =  1, 数字栈 size = 2 时就可以计算了
+    ///**
+    // *
+    // * 逆波兰计算器
+    // * 中缀: 4 * 3 + 2 + 1
+    // * 后缀: 4 3 * 2 + 1 +
+    // * @param reversePolishNotation 逆波兰表达式
+    // * @return
+    // */
+    //public BigDecimal calculateByRPN(String reversePolishNotation) {
+    //
+    //
+    //
+    //}
 
+    /**
+     * 中缀表达式转后缀表达式
+     * <p>
+     * 1+((2+3)*4)-5
+     *
+     * 如何做到括号先计算的，括号内
+     *
+     * @param commonExpr 中缀表达式
+     * @return
+     */
+    public String commonToRPN(String commonExpr) {
+
+        Stack<String> opStack = new Stack<>();
+        Stack<String> overallStack = new Stack<>();
+        boolean bracketFlag = false;
+
+        for (char character : commonExpr.toCharArray()) {
+
+            boolean isNumFlag = isNum(character);
+            String currentChar = String.valueOf(character);
+
+            //数字直接入栈
+            if (isNumFlag) {
+                overallStack.push(currentChar);
+                continue;
+            }
+
+            //符号做判断
+            //1. 为空、(，直接入栈
+            if (opStack.size() == 0 || "(".equals(currentChar)) {
+                opStack.push(currentChar);
+                continue;
+            }
+
+            //2. ),开始弹栈到主栈，到(结束
+            if (currentChar.equals(")")) {
+                while (!"(".equals(opStack.peek())) {
+                    overallStack.push(opStack.pop());
+                }
+                //舍弃 (
+                opStack.pop();
+                continue;
+            }
+
+            //3. 遇到其他运算符，比较优先级，高就直接入主栈
+            if ("(".equals(opStack.peek())) {
+                opStack.push(currentChar);
+                continue;
+            }
+
+            Integer prevOpPriority = OP_PRIORITY_MAP.get(opStack.peek());
+            Integer currentPriority = OP_PRIORITY_MAP.get(currentChar);
+            //优先级大直接入主栈
+            if (currentPriority > prevOpPriority) {
+                overallStack.push(currentChar);
+            } else {
+                //优先级 <= 前者入主栈，后者入符号栈
+                overallStack.push(opStack.pop());
+                opStack.push(currentChar);
+            }
+
+        }
+
+        while (opStack.size() > 0) {
+            overallStack.push(opStack.pop());
+        }
+
+        overallStack.reverse();
+        return overallStack.toString();
+
+    }
+
+    /**
+     * 中缀表达式 -> 后缀表达式
+     * <p>
+     * 例如: 6+1/3-(7-2*2)
+     * 1. 符号栈为空，直接入符号栈
+     * 2. 符号栈不为空，比较优先级，优先级<=前者，先算前面的，优先级>前者，放入数字后，算后面的，当符号栈size =  1, 数字栈 size = 2 时就可以计算了
+     * <p>
+     * 这就是逆波兰表达式的计算思想，Reserve Polish Notation，只不过实际逆波兰只要使用一个栈就可以了
+     *
+     * @param expr 中缀表达式
+     * @return
      */
     public BigDecimal calculate(String expr) {
 
@@ -98,6 +189,10 @@ public class CalculatorByStack {
                 //遇到括号，需先计算，都放到一个表达式中
                 if (chars[i] == '(') {
                     calculateFirstFromCount++;
+                    if (calculateFirstFlag) {
+                        //括号内括号，继续拼接
+                        calculateFirstExpr.append(chars[i]);
+                    }
                     calculateFirstFlag = true;
                     continue;
                 } else if (chars[i] == ')') {
