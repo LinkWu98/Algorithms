@@ -158,8 +158,6 @@ public class ArrayUtil {
             return;
         }
 
-        System.out.println("==========SecondDimensionArr==========");
-
         for (int[] innerArr : arr) {
 
             for (int j = 0; j < innerArr.length; j++) {

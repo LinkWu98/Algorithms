@@ -1,6 +1,6 @@
 package cn.link.exercise;
 
-import cn.link.data.structure.linkedlist.Stack;
+import cn.link.exercise.recursion.Labyrinth;
 import org.junit.Test;
 
 /**
@@ -43,6 +43,12 @@ public class ExerciseTest {
         System.out.println(calculator.commonToRPN("1+((2+3)*4)-5"));
         System.out.println(calculator.commonToRPN("1+2*3+4"));
 
+    }
+    @Test
+    public void testLabyrinth(){
+
+        Labyrinth labyrinth = new Labyrinth();
+        labyrinth.findWay(1, 1, 4, 6);
 
     }
 
