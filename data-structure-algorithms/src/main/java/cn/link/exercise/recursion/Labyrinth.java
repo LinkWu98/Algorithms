@@ -1,6 +1,10 @@
 package cn.link.exercise.recursion;
 
+import cn.link.common.AlgorithmUtil;
 import cn.link.common.ArrayUtil;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 迷宫问题
@@ -49,10 +53,42 @@ public class Labyrinth {
 
     }
 
+    public void initMaze() {
+
+        for (int i = 0; i < MAZE.length; i++) {
+
+            for (int j = 0; j < MAZE[i].length; j++) {
+
+                if (i == 0 || i == MAZE.length - 1) {
+
+                    MAZE[i][j] = 1;
+
+                } else if (j == 0
+                        || j == MAZE[i].length - 1
+                        //路障
+                        || (i == 3 && j <= 2)) {
+
+                    MAZE[i][j] = 1;
+
+                } else {
+
+                    MAZE[i][j] = 0;
+
+                }
+            }
+        }
+
+        MAZE[4][4] = 1;
+        MAZE[3][5] = 1;
+        System.out.println("============初始化迷宫============");
+        ArrayUtil.printSecondDimensionArr(MAZE);
+
+    }
+
     /**
-     * 尝试次数
+     * 尝试步数
      */
-    private int attemptCount;
+    private int stepCount;
 
     /**
      * 最简单的实现,按指定路径策略寻找
@@ -67,10 +103,10 @@ public class Labyrinth {
      */
     public boolean findWay(int currentPositionY, int currentPositionX, int endPositionY, int endPositionX) {
 
-        attemptCount++;
+        stepCount++;
         if (currentPositionY == endPositionY && currentPositionX == endPositionX) {
             MAZE[currentPositionY][currentPositionX] = 2;
-            System.out.println("到达终点，查找路线次数: " + attemptCount + " 次");
+            System.out.println("到达终点，查找路线次数: " + stepCount + " 次");
             return true;
         }
 
@@ -115,21 +151,105 @@ public class Labyrinth {
      * <p>
      * 其实就是各种方向策略存入一个集合，遍历集合，策略都走一遍，记录下每种策略行径次数，次数最少的就是最短的
      */
-    public void findShortestWay() {
+    public void findShortestWay(int currentPositionY, int currentPositionX, int endPositionY, int endPositionX) {
 
+        Map<String, Integer> strategyStepCountMap = new HashMap<>();
 
+        //排列组合所有行动策略
+        List<List<Integer>> permutation = new ArrayList<>();
+        AlgorithmUtil.permute(permutation, new ArrayList<>(), new int[]{1, 2, 3, 4});
+        for (List<Integer> strategy : permutation) {
+
+            //根据策略找路
+            findWayByStrategy(strategy, currentPositionY, currentPositionX, endPositionY, endPositionX);
+
+            //保存该策略的行径步数
+            strategyStepCountMap.put(strategy.toString(), stepCount);
+
+            //重新初始化迷宫
+            stepCount = 0;
+            initMaze();
+
+        }
+
+        //最短路径
+        Integer shortestStep = strategyStepCountMap.values().stream().sorted().collect(Collectors.toList()).get(0);
+        Map<String, Integer> shortestStrategyMap = new HashMap<>();
+        strategyStepCountMap.forEach((k, v) -> {
+            if (v == shortestStep) {
+                shortestStrategyMap.put(k, v);
+            }
+        });
+
+        System.out.println(shortestStrategyMap);
 
     }
 
     /**
-     * 排列组合, 返回所有的方向策略
+     * 根据策略寻找位置
      *
-     * 1 上， 2 下， 3 左， 4 右
-     * @return
+     * @param strategy         方向策略
+     * @param currentPositionY 当前位置 y
+     * @param currentPositionX 当前位置 x
+     * @param endPositionY     终点 y
+     * @param endPositionX     终点 x
      */
-    //private int[] allStrategyPermutation() {
-    //
-    //
-    //
-    //}
+    public boolean findWayByStrategy(List<Integer> strategy, int currentPositionY, int currentPositionX,
+                                     int endPositionY, int endPositionX) {
+
+        stepCount++;
+        int currentPosition = MAZE[currentPositionY][currentPositionX];
+
+        //0才能走
+        if (currentPosition != 0) {
+            return false;
+        }
+
+        if (currentPositionY == endPositionY && currentPositionX == endPositionX) {
+            MAZE[currentPositionY][currentPositionX] = 2;
+            return true;
+        }
+
+
+        for (int i = 0; i < strategy.size(); i++) {
+
+            switch (strategy.get(i)) {
+                //上
+                case 1:
+                    if (findWayByStrategy(strategy, currentPositionY - 1, currentPositionX, endPositionY, endPositionX)) {
+                        return true;
+                    }
+                    break;
+                //下
+                case 2:
+                    if (findWayByStrategy(strategy, currentPositionY + 1, currentPositionX, endPositionY, endPositionX)) {
+                        return true;
+                    }
+                    break;
+                //左
+                case 3:
+                    if (findWayByStrategy(strategy, currentPositionY, currentPositionX - 1, endPositionY, endPositionX)) {
+                        return true;
+                    }
+                    break;
+                //右
+                case 4:
+                    if (findWayByStrategy(strategy, currentPositionY, currentPositionX + 1, endPositionY, endPositionX)) {
+                        return true;
+                    }
+                    break;
+            }
+
+            //所有方向都尝试了还是不行
+            if (i == strategy.size() - 1) {
+                MAZE[currentPositionY][currentPositionX] = 3;
+            }
+
+        }
+
+        return false;
+
+    }
+
 }
+
