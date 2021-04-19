@@ -55,26 +55,27 @@ public class Labyrinth {
     private int attemptCount;
 
     /**
-     * 最简单的实现,穷举
+     * 最简单的实现,按指定路径策略寻找
      * <p>
      * 实际实现思路：
      * 下右上左 / 上右下左，各方向的排列组合，一个不行走另一个，走就完了
      *
-     * @param currentPositionY 当前位置 x
-     * @param currentPositionX 当前位置 y
-     * @param endPositionY     终点 x
-     * @param endPositionX     终点 y
+     * @param currentPositionY 当前位置 y
+     * @param currentPositionX 当前位置 x
+     * @param endPositionY     终点 y
+     * @param endPositionX     终点 x
      */
     public boolean findWay(int currentPositionY, int currentPositionX, int endPositionY, int endPositionX) {
 
         attemptCount++;
         if (currentPositionY == endPositionY && currentPositionX == endPositionX) {
+            MAZE[currentPositionY][currentPositionX] = 2;
             System.out.println("到达终点，查找路线次数: " + attemptCount + " 次");
             return true;
         }
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -108,4 +109,27 @@ public class Labyrinth {
         }
 
     }
+
+    /**
+     * 找出最短路径
+     * <p>
+     * 其实就是各种方向策略存入一个集合，遍历集合，策略都走一遍，记录下每种策略行径次数，次数最少的就是最短的
+     */
+    public void findShortestWay() {
+
+
+
+    }
+
+    /**
+     * 排列组合, 返回所有的方向策略
+     *
+     * 1 上， 2 下， 3 左， 4 右
+     * @return
+     */
+    //private int[] allStrategyPermutation() {
+    //
+    //
+    //
+    //}
 }
