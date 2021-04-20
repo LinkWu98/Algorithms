@@ -164,7 +164,7 @@ public class Labyrinth {
             findWayByStrategy(strategy, currentPositionY, currentPositionX, endPositionY, endPositionX);
 
             //保存该策略的行径步数
-            strategyStepCountMap.put(strategy.toString(), stepCount);
+            strategyStepCountMap.put(strategyToString(strategy), stepCount);
 
             //重新初始化迷宫
             stepCount = 0;
@@ -173,11 +173,17 @@ public class Labyrinth {
         }
 
         //最短路径
-        Integer shortestStep = strategyStepCountMap.values().stream().sorted().collect(Collectors.toList()).get(0);
-        Map<String, Integer> shortestStrategyMap = new HashMap<>();
+        Integer shortestStep = strategyStepCountMap
+                .values()
+                .stream()
+                .sorted()
+                .collect(Collectors.toList())
+                .get(0);
+
+        Map<String, String> shortestStrategyMap = new HashMap<>();
         strategyStepCountMap.forEach((k, v) -> {
             if (v == shortestStep) {
-                shortestStrategyMap.put(k, v);
+                shortestStrategyMap.put(k, v + "步");
             }
         });
 
@@ -203,13 +209,15 @@ public class Labyrinth {
         //0才能走
         if (currentPosition != 0) {
             return false;
+        } else {
+            //走过了，标记一下(bug记录:StackOverflowError, 如果不标记已走过，会一直来回走直到堆栈溢出)
+            MAZE[currentPositionY][currentPositionX] = 2;
         }
 
+        //到达终点
         if (currentPositionY == endPositionY && currentPositionX == endPositionX) {
-            MAZE[currentPositionY][currentPositionX] = 2;
             return true;
         }
-
 
         for (int i = 0; i < strategy.size(); i++) {
 
@@ -248,6 +256,47 @@ public class Labyrinth {
         }
 
         return false;
+
+    }
+
+    private String strategyToString(List<Integer> strategy) {
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < strategy.size(); i++) {
+
+            switch (strategy.get(i)) {
+
+                case 1:
+                    sb.append("上");
+                    break;
+                case 2:
+                    sb.append("下");
+                    break;
+                case 3:
+                    sb.append("左");
+                    break;
+                case 4:
+                    sb.append("右");
+                    break;
+            }
+
+            if (i != strategy.size() - 1) {
+                sb.append(",");
+            }
+
+        }
+
+        return sb.toString();
+
+    }
+
+    public static void main(String[] args) {
+
+        Labyrinth labyrinth = new Labyrinth();
+        //labyrinth.findWayByStrategy(Arrays.asList(2, 4, 1, 3), 1, 1, 4, 6);
+        //ArrayUtil.printSecondDimensionArr(MAZE);
+        labyrinth.initMaze();
+        labyrinth.findShortestWay(1, 1, 4, 6);
 
     }
 
