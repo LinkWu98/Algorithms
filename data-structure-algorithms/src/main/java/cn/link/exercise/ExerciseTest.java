@@ -1,6 +1,9 @@
 package cn.link.exercise;
 
+import cn.link.exercise.recursion.EightQueens;
 import cn.link.exercise.recursion.Labyrinth;
+import cn.link.exercise.structure.CalculatorByStack;
+import cn.link.exercise.structure.Joseph;
 import org.junit.Test;
 
 /**
@@ -45,7 +48,7 @@ public class ExerciseTest {
 
     }
     @Test
-    public void testLabyrinth(){
+    public void testLabyrinth() {
 
         Labyrinth labyrinth = new Labyrinth();
         //指定方向倾向的行走路径
@@ -53,6 +56,17 @@ public class ExerciseTest {
 
         labyrinth = new Labyrinth();
 
+
+    }
+
+    /**
+     * 八皇后问题
+     */
+    @Test
+    public void testEightQueens() {
+
+        EightQueens eightQueens = new EightQueens();
+        eightQueens.getEightQueenPossibilities();
 
     }
 

@@ -182,7 +182,7 @@ public class Labyrinth {
 
         Map<String, String> shortestStrategyMap = new HashMap<>();
         strategyStepCountMap.forEach((k, v) -> {
-            if (v == shortestStep) {
+            if (v.equals(shortestStep)) {
                 shortestStrategyMap.put(k, v + "步");
             }
         });
@@ -296,7 +296,7 @@ public class Labyrinth {
         //labyrinth.findWayByStrategy(Arrays.asList(2, 4, 1, 3), 1, 1, 4, 6);
         //ArrayUtil.printSecondDimensionArr(MAZE);
         labyrinth.initMaze();
-        labyrinth.findShortestWay(1, 1, 4, 6);
+        labyrinth.findShortestWay(2, 2, 4, 6);
 
     }
 

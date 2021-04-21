@@ -1,4 +1,4 @@
-package cn.link.exercise;
+package cn.link.exercise.structure;
 
 import cn.link.data.structure.linkedlist.DoublyLinkedList;
 
