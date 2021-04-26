@@ -10,6 +10,8 @@ package cn.link.sort;
 public class BubbleSorting {
 
     /**
+     * 复杂度 O(n^2)
+     *
      * 两两比较，把大的数往后放
      * <p>
      * 优化：如果在边界到来前，一次循环中一次也没交换过，则有序，退出循环

@@ -16,13 +16,16 @@ public class SortTest {
     @Test
     public void testBubbleSorting(){
 
-        int[] arr = {2, 1, 3, 4};
+        int[] arr = {2, 1, 4, 3};
         BubbleSorting.sort(arr);
         ArrayUtil.printArray(arr);
 
         int[] arr2 = {2, 1, 3, 4};
         SelectSorting.sort(arr2);
         ArrayUtil.printArray(arr2);
+
+        int[] arr3 = {2, 1, 4, 3};
+        ArrayUtil.printArray(InsertionSorting.sort(arr3));
 
     }
 
