@@ -47,4 +47,18 @@ public class InsertionSorting {
 
     }
 
+    /**
+     * 希尔排序
+     *
+     * 如果来了个最小的数，普通的插入排序也需要一个个往前找，效率太低，因此就有了希尔排序：
+     *
+     * 希尔排序也是一种插入排序，它是简单插入排序经过改进之后的一个更高效的版本，也称为缩小增量排序。
+     * 将
+     *
+     * @param arr
+     */
+    public static void shellSort(int[] arr) {
+
+    }
+
 }
