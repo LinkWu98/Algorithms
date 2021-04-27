@@ -1,5 +1,9 @@
 package cn.link.sort;
 
+import cn.link.common.ArrayUtil;
+
+import java.util.ArrayList;
+
 /**
  * 插入排序
  * <p>
@@ -49,15 +53,44 @@ public class InsertionSorting {
 
     /**
      * 希尔排序
-     *
+     * <p>
      * 如果来了个最小的数，普通的插入排序也需要一个个往前找，效率太低，因此就有了希尔排序：
-     *
+     * <p>
      * 希尔排序也是一种插入排序，它是简单插入排序经过改进之后的一个更高效的版本，也称为缩小增量排序。
-     * 将
+     * <p>
+     * 我一开始的思路：以为每组都要排好序，但其实还是只把最小的放第一个 TODO 还是要排序啊
+     * 核心思想：尽量将小的元素前置，大的元素后置，然后在一个相对有序的情况下再进行一次插入排序即可
      *
      * @param arr
+     * @param prevGap 步长，第一次是数组的长度
      */
-    public static void shellSort(int[] arr) {
+    public static int[] shellSort(int[] arr, int prevGap) {
+
+        //1.计算当前步长
+        int currentGap = prevGap / 2;
+
+        //步长为 1，最后一次插入排序即可
+        if (currentGap == 1) {
+            return sort(arr);
+        }
+
+        //外部循环遍历每组最前的元素
+        for (int i = 0; i < currentGap; i++) {
+            //内部循环遍历每组步长的元素
+            for (int j = i + currentGap; j < arr.length; j += currentGap) {
+                //小于就交换到前面去
+                if (arr[j] < arr[i]) {
+                    int temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+
+        System.out.println("排序后:");
+        ArrayUtil.printArray(arr);
+
+        return shellSort(arr, currentGap);
 
     }
 
