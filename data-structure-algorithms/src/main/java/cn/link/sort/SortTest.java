@@ -28,7 +28,8 @@ public class SortTest {
         ArrayUtil.printArray(InsertionSorting.sort(arr3));
 
         int[] arr4 = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0};
-        ArrayUtil.printArray(InsertionSorting.shellSort(arr4, arr4.length));
+        InsertionSorting.shellSort(arr4);
+        ArrayUtil.printArray(arr4);
 
     }
 
