@@ -51,41 +51,4 @@ public class InsertionSorting {
 
     }
 
-    /**
-     * 希尔排序
-     * <p>
-     * 如果来了个最小的数，普通的插入排序也需要一个个往前找，效率太低，因此就有了希尔排序：
-     * <p>
-     * 希尔排序也是一种插入排序，它是简单插入排序经过改进之后的一个更高效的版本，也称为缩小增量排序。
-     * <p>
-     * 核心思想：分组，每组排序，每组有序后，整体就相对有序了，然后最后一次效率就很高了
-     *
-     * @param arr
-     */
-    public static void shellSort(int[] arr) {
-
-        //最外部循环：计算每一轮的gap
-        for (int gap = arr.length / 2; gap > 0; gap /= 2) {
-            //外部循环：从第一组的第二个gap元素开始,然后依次遍历到第n组的第n个元素
-            for (int i = gap; i < arr.length; i++) {
-                /*
-                    内部循环：从第n组的第n个元素往前推所有当前组的gap元素，进行比较并替换，
-                            随着外部循环的增加，内部循环一组比较的元素会越来越多
-                 */
-                for (int j = i - gap; j >= 0; j -= gap) {
-                    if (arr[j] > arr[j + gap]) {
-                        int temp = arr[j];
-                        arr[j] = arr[j + gap];
-                        arr[j + gap] = temp;
-                    }
-                }
-            }
-
-            System.out.println("一轮排序后:");
-            ArrayUtil.printArray(arr);
-
-        }
-
-    }
-
 }
