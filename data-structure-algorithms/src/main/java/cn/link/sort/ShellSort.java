@@ -13,7 +13,7 @@ import cn.link.common.ArrayUtil;
  * @version 1.0
  * @date 2021/4/28 11:58
  */
-public class ShellSorting {
+public class ShellSort {
 
     /**
      * 基于移动的希尔排序，真正的希尔

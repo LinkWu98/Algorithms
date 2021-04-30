@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @version 1.0
  * @date 2021/4/26 14:43
  */
-public class InsertionSorting {
+public class InsertionSort {
 
     /**
      * 复杂度 O(n^2)

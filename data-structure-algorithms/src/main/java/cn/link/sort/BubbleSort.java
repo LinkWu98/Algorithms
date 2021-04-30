@@ -7,7 +7,7 @@ package cn.link.sort;
  * @version 1.0
  * @date 2021/4/25 10:39
  */
-public class BubbleSorting {
+public class BubbleSort {
 
     /**
      * 复杂度 O(n^2)

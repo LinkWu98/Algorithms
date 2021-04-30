@@ -7,7 +7,7 @@ package cn.link.sort;
  * @version 1.0
  * @date 2021/4/25 11:47
  */
-public class SelectSorting {
+public class SelectSort {
 
     /**
      * 复杂度 O(n^2)
