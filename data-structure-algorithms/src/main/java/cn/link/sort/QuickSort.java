@@ -25,30 +25,25 @@ public class QuickSort {
         int currentLeft = left;
         int currentRight = right;
 
-        //结束条件：left = right，则是该pivot的下标
-        //从右边开始，交替比较
-        boolean rightCompareFlag = true;
-        //比较后要换位置的，换到哪一边，哪一边就要自增/减下标，换边继续比较
-        while (currentLeft != currentRight) {
-            if (rightCompareFlag) {
-                if (pivot > arr[currentRight]) {
-                    //右边 < pivot,到左边来
-                    arr[currentLeft] = arr[currentRight];
-                    currentLeft++;
-                    rightCompareFlag = false;
-                    continue;
-                }
+        //先从右边开始，左右交替比较，结束条件：left = right，则是该pivot的下标
+        while (currentLeft < currentRight) {
+
+            //<=右边,左移下标继续比较
+            while (currentLeft != currentRight && pivot <= arr[currentRight]) {
                 currentRight--;
-            } else {
-                if (pivot < arr[currentLeft]) {
-                    //左边 > pivot，到右边去
-                    arr[currentRight] = arr[currentLeft];
-                    currentRight--;
-                    rightCompareFlag = true;
-                    continue;
-                }
+            }
+
+            //< pivot,到左边来
+            arr[currentLeft] = arr[currentRight];
+
+            //>=左边,右移下标继续比较
+            while (currentLeft != currentRight && pivot >= arr[currentLeft]) {
                 currentLeft++;
             }
+
+            //> pivot，到右边去
+            arr[currentRight] = arr[currentLeft];
+
         }
 
         //最终 left == right,也就是pivot有序时的下标
