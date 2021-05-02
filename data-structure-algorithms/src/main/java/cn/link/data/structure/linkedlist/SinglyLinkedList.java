@@ -294,9 +294,7 @@ public class SinglyLinkedList<T> {
 
     /**
      * 合并单链表，合并后依然有序
-     * <p>
-     * 本体在外，参数在内
-     * <p>
+     *
      * 不使用数组，时间复杂度为 n * m
      * 使用数组为 2m + n(<=n)
      */
@@ -310,6 +308,7 @@ public class SinglyLinkedList<T> {
         Node<T> anotherTemp = linkedList.head.next;
         Node<T>[] nodes = new Node[linkedList.count];
         int index = 0;
+        //这里拿到传参的内部nodes，为了方便操作内部元素
         while (anotherTemp != null) {
 
             nodes[index++] = anotherTemp;
@@ -317,11 +316,14 @@ public class SinglyLinkedList<T> {
 
         }
 
+        //记录内部遍历到的起始下标
         index = 0;
         boolean finishFlag = false;
         Node<T> prev = this.head;
+        //外部遍历被比较的元素
         while (temp != null) {
 
+            //内部遍历比较的元素
             for (int i = index; i < nodes.length; i++) {
 
                 //大于，下标不变，外部继续遍历
@@ -347,13 +349,13 @@ public class SinglyLinkedList<T> {
                 break;
             }
 
-            //浅拷贝即可
+            //单向链表，用prev浅拷贝记录当前的
             prev = (Node<T>) temp.clone();
             temp = temp.next;
 
         }
 
-        //没结束，说明有的 no 大于本体最后一个no，没插入，直接插入到最后即可
+        //没遍历到内部最后一个结束，说明部分内部元素的 no 大于外部的最后一个no，没插入，直接插入到外部的最后即可
         if (!finishFlag) {
             prev.next = nodes[index];
         }
