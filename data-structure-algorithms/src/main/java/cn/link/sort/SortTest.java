@@ -13,15 +13,15 @@ public class SortTest {
     @Test
     public void testBubbleSorting() {
 
-        int[] arr = {2, 1, 4, 3};
+        int[] arr = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0};
         BubbleSort.sort(arr);
         ArrayUtil.printArray(arr);
 
-        int[] arr2 = {2, 1, 3, 4};
+        int[] arr2 = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0};
         SelectSort.sort(arr2);
         ArrayUtil.printArray(arr2);
 
-        int[] arr3 = {2, 1, 4, 3};
+        int[] arr3 = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0};
         ArrayUtil.printArray(InsertionSort.sort(arr3));
 
         int[] arr4 = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0};
@@ -39,7 +39,19 @@ public class SortTest {
         int[] arr7 = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0};
         MergeSort.sort(arr7);
         ArrayUtil.printArray(arr7);
+        
+        int[] arr8 = {18, 29, 111, 2222, 412, 13, 5, 4, 6, 0};
+        RadixSort.sort(arr8);
+        ArrayUtil.printArray(arr8);
 
     }
+
+
+    @Test
+    public void test() {
+
+
+    }
+
 
 }
