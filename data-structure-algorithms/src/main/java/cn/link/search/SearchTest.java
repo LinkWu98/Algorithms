@@ -21,7 +21,8 @@ public class SearchTest {
         i = BinarySearch.search(arr, 0, arr.length - 1, 1);
         System.out.println(i);
         List<Integer> searchAll = BinarySearch.searchAll(arr, 4);
-        System.out.println(searchAll.toString());
+        System.out.println(searchAll);
+        System.out.println(InsertValueSearch.search(arr, 6));
 
     }
 
