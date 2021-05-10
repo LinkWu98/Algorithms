@@ -23,6 +23,8 @@ public class SearchTest {
         List<Integer> searchAll = BinarySearch.searchAll(arr, 4);
         System.out.println(searchAll);
         System.out.println(InsertValueSearch.search(arr, 6));
+        int[] arr2 = new int[]{0, 1, 2, 3, 42, 51, 64, 71, 88, 90, 101};
+        System.out.println(FibonacciSearch.search(arr2, 42));
 
     }
 
