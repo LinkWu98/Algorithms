@@ -3,6 +3,7 @@ package cn.link.exercise;
 import cn.link.exercise.recursion.EightQueens;
 import cn.link.exercise.recursion.Labyrinth;
 import cn.link.exercise.structure.CalculatorByStack;
+import cn.link.exercise.structure.GoogleHashtable;
 import cn.link.exercise.structure.Joseph;
 import org.junit.Test;
 
@@ -67,6 +68,28 @@ public class ExerciseTest {
 
         EightQueens eightQueens = new EightQueens();
         eightQueens.getEightQueenPossibilities();
+
+    }
+
+    @Test
+    public void testGoogleHashtable(){
+
+        GoogleHashtable hashtable = new GoogleHashtable(10);
+        GoogleHashtable.Employee employee1 = new GoogleHashtable.Employee(1, "link");
+        GoogleHashtable.Employee employee2 = new GoogleHashtable.Employee(2, "link");
+        GoogleHashtable.Employee employee3 = new GoogleHashtable.Employee(3, "link");
+        GoogleHashtable.Employee employee4 = new GoogleHashtable.Employee(4, "link");
+        GoogleHashtable.Employee employee5 = new GoogleHashtable.Employee(5, "link");
+
+        hashtable.put(employee1);
+        hashtable.put(employee2);
+        hashtable.put(employee3);
+        hashtable.put(employee4);
+        hashtable.put(employee5);
+
+        GoogleHashtable.Employee employee = hashtable.get(2);
+        System.out.println(employee.getName() + employee.getId());
+
 
     }
 

@@ -57,7 +57,7 @@ public class FibonacciSearch {
             fIndex++;
         }
 
-        //初始化一个长度一致的数组，原数组长度后的用最后一个填充，防止下标越界
+        //由于会有长度超过原数组的情况，初始化一个长度一致的数组，原数组长度后的用最后一个元素补足，防止下标越界
         int[] temp = Arrays.copyOf(arr, f[fIndex]);
         for (int i = arr.length; i < temp.length; i++) {
             temp[i] = arr[arr.length - 1];
@@ -81,7 +81,7 @@ public class FibonacciSearch {
                 if (mid <= high) {
                     return mid;
                 } else {
-                    //虽然符合了，但是超过边界，返回对应值
+                    //虽然符合了，但是超过边界，返回边界即可
                     return arr.length - 1;
                 }
             }

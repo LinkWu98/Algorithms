@@ -8,27 +8,27 @@ public class Node<T> {
     /**
      * data域
      */
-    protected T data;
+    public T data;
 
     /**
      * next域
      */
-    protected Node<T> prev;
+    public Node<T> prev;
 
     /**
      * next域
      */
-    protected Node<T> next;
+    public Node<T> next;
 
     /**
      * 节点的编号，在链表中节点会按 no 排序
      */
-    protected Integer no;
+    public Integer no;
 
-    protected Node() {
+    public Node() {
     }
 
-    protected Node(T data, Node<T> next, Integer no) {
+    public Node(T data, Node<T> next, Integer no) {
         this.data = data;
         this.next = next;
         this.no = no;
@@ -41,17 +41,17 @@ public class Node<T> {
         this.no = no;
     }
 
-    protected Node(T data, Node<T> next) {
+    public Node(T data, Node<T> next) {
         this.data = data;
         this.next = next;
     }
 
-    protected Node(T data) {
+    public Node(T data) {
         this.data = data;
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
 }
