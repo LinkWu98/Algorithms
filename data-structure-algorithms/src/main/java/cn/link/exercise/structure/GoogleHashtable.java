@@ -1,8 +1,8 @@
 package cn.link.exercise.structure;
 
+import cn.link.data.structure.linkedlist.DoublyLinkedList;
 import cn.link.data.structure.linkedlist.Node;
-import cn.link.data.structure.linkedlist.SinglyLinkedList;
-import org.apache.poi.ss.formula.functions.T;
+import cn.link.data.structure.linkedlist.DoublyLinkedList;
 
 /**
  * 看一个实际需求，google公司的一个上机题:
@@ -28,11 +28,11 @@ public class GoogleHashtable {
     /**
      * 数组 + 链表（偷懒就不用node了，原理相同）
      */
-    private final SinglyLinkedList<Employee>[] nodes;
+    private final DoublyLinkedList<Employee>[] nodes;
 
     public GoogleHashtable(int size) {
         this.size = size;
-        this.nodes = new SinglyLinkedList[size];
+        this.nodes = new DoublyLinkedList[size];
     }
 
     /**
@@ -52,10 +52,10 @@ public class GoogleHashtable {
         //使用简单的取模法，来计算元素将要插入的下标
         int index = this.calculateIndex(employee.getId());
         if (this.nodes[index] == null) {
-            this.nodes[index] = new SinglyLinkedList<>();
+            this.nodes[index] = new DoublyLinkedList<>();
         }
 
-        SinglyLinkedList<Employee> nodes = this.nodes[index];
+        DoublyLinkedList<Employee> nodes = this.nodes[index];
         Node<Employee> node = nodes.getNode(0);
         //尾插法，id重复就覆盖
         while (node != null) {
@@ -63,6 +63,12 @@ public class GoogleHashtable {
                 node.data = employee;
                 return true;
             }
+
+            //防止双向循环链表的死循环
+            if (nodes.size() == 1) {
+                break;
+            }
+
             node = node.next;
         }
 
@@ -81,7 +87,7 @@ public class GoogleHashtable {
     public Employee get(int id) {
 
         int index = this.calculateIndex(id);
-        SinglyLinkedList<Employee> nodes = this.nodes[index];
+        DoublyLinkedList<Employee> nodes = this.nodes[index];
         if (nodes == null) {
             return null;
         }
@@ -93,6 +99,11 @@ public class GoogleHashtable {
                 return node.data;
             }
 
+            //防止双向循环链表get不到，死循环
+            if (node.next == nodes.getNode(0)) {
+                break;
+            }
+
             node = node.next;
 
         }
@@ -102,8 +113,50 @@ public class GoogleHashtable {
 
     }
 
+    /**
+     * 通过id移除元素
+     * @param id
+     * @return
+     */
+    public boolean remove(int id) {
+
+        //找下标
+        int index = this.calculateIndex(id);
+        if (this.nodes[index] == null) {
+            return false;
+        }
+
+        //找链表数据
+        DoublyLinkedList<Employee> nodes = this.nodes[index];
+        Node<Employee> node = nodes.getNode(0);
+        while (node != null) {
+
+            if (node.data.getId() == id) {
+
+                //前接后
+                if (node.prev != null && node.next != null) {
+                    node.prev.next = node.next;
+                } else if (node.prev != null) {
+                    //前接空
+                    node.prev.next = null;
+                } else {
+                    //后到头之后
+                    node.next = nodes.getHead().next;
+                }
+
+                return true;
+
+            }
+
+            node = node.next;
+        }
+
+        return false;
+
+    }
+
     public int calculateIndex(int id) {
-        return size % id;
+        return id % size;
     }
 
     public static class Employee {
@@ -132,6 +185,13 @@ public class GoogleHashtable {
             this.name = name;
         }
 
+        @Override
+        public String toString() {
+            return "Employee{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    '}';
+        }
     }
 
 

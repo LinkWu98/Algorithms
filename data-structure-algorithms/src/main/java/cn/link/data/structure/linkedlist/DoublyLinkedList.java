@@ -83,6 +83,32 @@ public class DoublyLinkedList<T> {
     }
 
     /**
+     * 获取第 n 个节点的 data(从 0 开始)
+     */
+    public Node<T> getNode(int index) {
+
+        //1. 获取有效节点个数
+        if (index > this.size) {
+            return null;
+        }
+
+        //2. 获取对应下标的节点
+        int tempIndex = 0;
+        Node<T> temp = head;
+        while (temp != null) {
+
+            if (tempIndex++ == index) {
+                return temp;
+            }
+
+            temp = temp.next;
+        }
+
+        return null;
+
+    }
+
+    /**
      * 环形链表解决出队问题
      * <p>
      * 核心思路:出队后链表上一个指向下一个

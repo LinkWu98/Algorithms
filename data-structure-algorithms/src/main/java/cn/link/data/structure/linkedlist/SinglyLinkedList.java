@@ -362,6 +362,10 @@ public class SinglyLinkedList<T> {
 
     }
 
+    public Node<T> getHead() {
+        return head;
+    }
+
     /**
      * 从尾到头打印
      */

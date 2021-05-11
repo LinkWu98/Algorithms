@@ -71,25 +71,32 @@ public class ExerciseTest {
 
     }
 
+    /**
+     * 谷歌哈希表测试
+     */
     @Test
     public void testGoogleHashtable(){
 
         GoogleHashtable hashtable = new GoogleHashtable(10);
         GoogleHashtable.Employee employee1 = new GoogleHashtable.Employee(1, "link");
         GoogleHashtable.Employee employee2 = new GoogleHashtable.Employee(2, "link");
-        GoogleHashtable.Employee employee3 = new GoogleHashtable.Employee(3, "link");
-        GoogleHashtable.Employee employee4 = new GoogleHashtable.Employee(4, "link");
-        GoogleHashtable.Employee employee5 = new GoogleHashtable.Employee(5, "link");
+        GoogleHashtable.Employee employee6 = new GoogleHashtable.Employee(11, "link");
 
         hashtable.put(employee1);
         hashtable.put(employee2);
-        hashtable.put(employee3);
-        hashtable.put(employee4);
-        hashtable.put(employee5);
+        hashtable.put(employee6);
 
-        GoogleHashtable.Employee employee = hashtable.get(2);
-        System.out.println(employee.getName() + employee.getId());
+        GoogleHashtable.Employee employee = hashtable.get(11);
+        System.out.println(employee == null ? "null" : employee.toString());
 
+        GoogleHashtable.Employee employee7 = new GoogleHashtable.Employee(11, "zelda");
+        hashtable.put(employee7);
+        employee = hashtable.get(11);
+        System.out.println(employee == null ? "null" : employee.toString());
+
+        hashtable.remove(11);
+        employee = hashtable.get(11);
+        System.out.println(employee == null ? "null" : employee.toString());
 
     }
 
