@@ -3,11 +3,12 @@ package cn.link.data.structure.tree;
 import cn.link.data.structure.linkedlist.Stack;
 
 /**
+ *
  * @author Link50
  * @version 1.0
  * @date 2021/5/13 12:57
  */
-public class BinarySortTree<T> {
+public class BinarySortTree<T>  extends Tree<T> {
 
     /**
      * 根节点
