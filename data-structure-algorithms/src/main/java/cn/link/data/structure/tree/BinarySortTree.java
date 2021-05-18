@@ -23,28 +23,6 @@ public class BinarySortTree<T>  extends Tree<T> {
      * 借助栈实现
      *
      */
-    public void preOrderForEach() {
-
-        Stack<Node<T>> stack = new Stack<>();
-        stack.push(root);
-        while (stack.size() > 0) {
-
-            Node<T> node = stack.pop();
-            System.out.println(node.data);
-
-            //先入后出的原理，先压入右，再压入左
-            if (node.right != null) {
-                stack.push(node.right);
-            }
-
-            if (node.left != null) {
-                stack.push(node.left);
-            }
-
-        }
-
-    }
-
     /**
      *
      * 前、中、后序遍历，从根节点开始遍历左边的子树，再遍历右边的子树，按遍历的不同，改变输出根节点的时机即可
