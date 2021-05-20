@@ -31,6 +31,17 @@ public class TreeTest {
         //tree.postOrderRecursive();
 
         //tree.preOrder();
+        tree.remove(1);
+        tree.preOrder();
+        //tree.infixOrder();
+        //tree.postOrder();
+
+    }
+
+    @Test
+    public void testArrayTree(){
+        ArrayBinaryTree tree = new ArrayBinaryTree();
+        //tree.preOrder();
         //tree.infixOrder();
         tree.postOrder();
 

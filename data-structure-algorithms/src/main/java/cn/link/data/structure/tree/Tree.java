@@ -18,6 +18,50 @@ public class Tree<T> {
     public Node<T> root;
 
     /**
+     * 乞丐版移除节点
+     * 问题：节点遍历到了，但是目前节点是单向的，不能找回去，然后移除
+     * 解决：获取后节点直接判断，是就移除
+     *
+     * <p>
+     * 1.叶子结点 - 直接移除
+     * 2.非叶子结点 - 移除子树
+     */
+    public boolean remove(T data) {
+
+        //基于前序遍历
+        Stack<Node<T>> stack = new Stack<>();
+        stack.push(root);
+        while (stack.size() > 0) {
+
+            Node<T> temp = stack.pop();
+            if (temp.data == data) {
+                //只有根节点会遇到该情况
+                root = null;
+            }
+
+            if (temp.rightChild != null) {
+                if (temp.rightChild.data == data) {
+                    temp.rightChild = null;
+                    return true;
+                }
+                stack.push(temp.rightChild);
+            }
+
+            if (temp.leftChild != null) {
+                if (temp.leftChild.data == data) {
+                    temp.leftChild = null;
+                    return true;
+                }
+                stack.push(temp.leftChild);
+            }
+
+        }
+
+        return false;
+
+    }
+
+    /**
      * 非递归的前序遍历，借助栈实现
      * <p>
      * 1.先将根节点入栈
