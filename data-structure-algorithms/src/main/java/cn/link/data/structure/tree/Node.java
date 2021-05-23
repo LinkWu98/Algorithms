@@ -28,4 +28,14 @@ public class Node<T> {
      */
     public T data;
 
+    /**
+     * 线索二叉树所使用，1 - 线索节点
+     */
+    public int leftType;
+
+    /**
+     * 线索二叉树所使用，1 - 线索节点
+     */
+    public int rightType;
+
 }
