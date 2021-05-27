@@ -25,24 +25,24 @@ public class ThreadedBinaryTree<T> {
     private Node<T> prev;
 
     /**
-     * 线索化二叉树
+     * 线索化中序二叉树
      */
-    public void threadNodes() {
-        threadNodes(root);
+    public void infixThread() {
+        infixThread(root);
     }
 
     /**
      * 线索化中序二叉树
      */
-    public void threadNodes(Node<T> node) {
+    public void infixThread(Node<T> node) {
 
         if (node == null) {
             return;
         }
 
-        threadNodes(node.left);
+        infixThread(node.left);
 
-        if (node.left == null && prev != null) {
+        if (node.left == null) {
             //前驱节点
             node.left = prev;
             node.leftType = 1;
@@ -56,47 +56,14 @@ public class ThreadedBinaryTree<T> {
 
         prev = node;
 
-        threadNodes(node.right);
+        infixThread(node.right);
 
     }
 
     /**
-     * 线索化后序二叉树
+     * 中序遍历线索节点
      */
-    public void threadNodesPostOrder() {
-
-        threadNodesPostOrder(root);
-
-    }
-
-    public void threadNodesPostOrder(Node<T> node) {
-
-        if (node == null) {
-            return;
-        }
-
-        threadNodesPostOrder(node.left);
-
-        threadNodesPostOrder(node.right);
-
-        if (node.left == null) {
-            node.left = prev;
-            node.leftType = 1;
-        }
-
-        if (prev != null && prev.right == null) {
-            prev.right = node;
-            prev.rightType = 1;
-        }
-
-        prev = node;
-
-    }
-
-    /**
-     * 遍历线索节点
-     */
-    public void threadNodesTraversal() {
+    public void infixTraversal() {
 
         Node<T> node = root;
         while (node != null) {
@@ -117,6 +84,110 @@ public class ThreadedBinaryTree<T> {
             node = node.right;
 
         }
+
+    }
+
+    /**
+     * 前序线索化二叉树
+     */
+    public void preThread() {
+
+        preThread(root);
+
+    }
+
+    public void preThread(Node<T> node) {
+
+        if (node == null) {
+            return;
+        }
+
+        if (node.left == null) {
+            node.left = prev;
+            node.leftType = 1;
+        }
+
+        if (prev != null && prev.right == null) {
+            prev.right = node;
+            prev.rightType = 1;
+        }
+
+        prev = node;
+
+        //前序线索化给子节点的left/right赋值的缘故，会进入死循环，因此添加判断，不是线索再进入判断
+        if (node.leftType == 0) {
+            preThread(node.left);
+        }
+
+        if (node.rightType == 0) {
+            preThread(node.right);
+        }
+
+    }
+
+    /**
+     * 前序遍历线索节点
+     * 左指针不为空，且不是前驱节点，则遍历
+     * 右指针不空，且是后继节点，则遍历
+     */
+    public void preTraversal() {
+
+        Node<T> node = root;
+        while (node != null) {
+
+            //为了输出线索节点本身
+            while (node.leftType == 0) {
+                System.out.println(node.data);
+                node = node.left;
+            }
+
+            System.out.println(node.data);
+
+            node = node.right;
+
+        }
+
+    }
+
+    /**
+     * 后序线索化二叉树
+     */
+    public void postThread() {
+
+        postThread(root);
+
+    }
+
+    public void postThread(Node<T> node) {
+
+        if (node == null) {
+            return;
+        }
+
+        postThread(node.left);
+
+        postThread(node.right);
+
+        if (node.left == null) {
+            node.left = prev;
+            node.leftType = 1;
+        }
+
+        if (prev != null && prev.right == null) {
+            prev.right = node;
+            prev.rightType = 1;
+        }
+
+        prev = node;
+
+    }
+
+    /**
+     * 后续遍历线索节点
+     */
+    public void postTraversal() {
+
+        //TODO 先遍历左边到底，一直往右找直到不是线索节点，再遍历右边同理，最后输出root
 
     }
 
