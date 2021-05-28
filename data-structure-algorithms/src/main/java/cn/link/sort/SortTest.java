@@ -44,6 +44,10 @@ public class SortTest {
         RadixSort.sort(arr8);
         ArrayUtil.printArray(arr8);
 
+        int[] arr9 = {18, 29, 111, 2222, 412, 13, 5, 4, 6, 0};
+        HeapSort.sort(arr9);
+        ArrayUtil.printArray(arr9);
+
     }
 
 
