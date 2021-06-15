@@ -47,4 +47,18 @@ public class TreeTest {
 
     }
 
+    @Test
+    public void testBST(){
+
+        BinarySortTree bst = new BinarySortTree();
+        bst.add(1);
+        bst.add(4);
+        bst.add(2);
+        bst.add(3);
+        bst.add(9);
+
+        bst.infixTraversal();
+
+    }
+
 }
