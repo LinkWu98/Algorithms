@@ -187,7 +187,8 @@ public class ThreadedBinaryTree<T> {
      */
     public void postTraversal() {
 
-        //TODO 先遍历左边到底，一直往右找直到不是线索节点，再遍历右边同理，最后输出root
+        //TODO Node需要添加一个parent属性，记录父节点
+        //先遍历左边到底，一直往右找直到不是线索节点，再遍历右边同理，最后输出root
 
     }
 
