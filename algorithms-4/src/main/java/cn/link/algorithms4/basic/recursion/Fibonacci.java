@@ -21,6 +21,11 @@ public class Fibonacci {
 
     /**
      * Rabbit
+     *
+     * 首先我们要发现一个规律: 0 1 1 2 3 5 8 13 21
+     *
+     * 也就是这个数列从第3项开始，每一项都等于前两项之和
+     *
      * @param month
      * @return
      */
