@@ -37,7 +37,7 @@ public class AlgorithmUtil {
 
             tempNums.add(nums[i]);
             permute(permutation, tempNums, nums);
-            //放一位就移除一位
+            //在完成一种组和后执行到这里，会移除当前一轮的那一位数字，从而达到遍历到数组中每一个元素的效果
             tempNums.remove(tempNums.size() - 1);
 
         }
