@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 /**
  * 迷宫问题
  *
+ * 行走策略如：下右上左，指的是，先走下，能走就一直下，不能再走右，以此类推
+ *
  * @author Link50
  * @version 1.0
  * @date 2021/4/15 11:33
@@ -98,13 +100,13 @@ public class Labyrinth {
      *
      * @param currentPositionY 当前位置 y
      * @param currentPositionX 当前位置 x
-     * @param endPositionY     终点 y
-     * @param endPositionX     终点 x
+     * @param finishPositionY     终点 y
+     * @param finishPositionX     终点 x
      */
-    public boolean findWay(int currentPositionY, int currentPositionX, int endPositionY, int endPositionX) {
+    public boolean findWay(int currentPositionY, int currentPositionX, int finishPositionY, int finishPositionX) {
 
         stepCount++;
-        if (currentPositionY == endPositionY && currentPositionX == endPositionX) {
+        if (currentPositionY == finishPositionY && currentPositionX == finishPositionX) {
             MAZE[currentPositionY][currentPositionX] = 2;
             System.out.println("到达终点，查找路线次数: " + stepCount + " 次");
             return true;
@@ -122,16 +124,16 @@ public class Labyrinth {
             MAZE[currentPositionY][currentPositionX] = 2;
             System.out.println("=======当前行迹路线=======");
             ArrayUtil.printSecondDimensionArr(MAZE);
-            if (findWay(currentPositionY + 1, currentPositionX, endPositionY, endPositionX)) {
+            if (findWay(currentPositionY + 1, currentPositionX, finishPositionY, finishPositionX)) {
                 //下
                 return true;
-            } else if (findWay(currentPositionY, currentPositionX + 1, endPositionY, endPositionX)) {
+            } else if (findWay(currentPositionY, currentPositionX + 1, finishPositionY, finishPositionX)) {
                 //右
                 return true;
-            } else if (findWay(currentPositionY - 1, currentPositionX, endPositionY, endPositionX)) {
+            } else if (findWay(currentPositionY - 1, currentPositionX, finishPositionY, finishPositionX)) {
                 //上
                 return true;
-            } else if (findWay(currentPositionY, currentPositionX - 1, endPositionY, endPositionX)) {
+            } else if (findWay(currentPositionY, currentPositionX - 1, finishPositionY, finishPositionX)) {
                 //左
                 return true;
             } else {
@@ -151,7 +153,7 @@ public class Labyrinth {
      * <p>
      * 其实就是各种方向策略存入一个集合，遍历集合，策略都走一遍，记录下每种策略行径次数，次数最少的就是最短的
      */
-    public void findShortestWay(int currentPositionY, int currentPositionX, int endPositionY, int endPositionX) {
+    public void findShortestWay(int currentPositionY, int currentPositionX, int finishPositionY, int finishPositionX) {
 
         Map<String, Integer> strategyStepCountMap = new HashMap<>();
 
@@ -161,7 +163,7 @@ public class Labyrinth {
         for (List<Integer> strategy : permutation) {
 
             //根据策略找路
-            findWayByStrategy(strategy, currentPositionY, currentPositionX, endPositionY, endPositionX);
+            findWayByStrategy(strategy, currentPositionY, currentPositionX, finishPositionY, finishPositionX);
 
             //保存该策略的行径步数
             strategyStepCountMap.put(strategyToString(strategy), stepCount);

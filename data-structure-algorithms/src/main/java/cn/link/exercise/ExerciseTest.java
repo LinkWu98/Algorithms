@@ -55,7 +55,6 @@ public class ExerciseTest {
         //指定方向倾向的行走路径
         labyrinth.findWay(1, 1, 4, 6);
 
-        labyrinth = new Labyrinth();
 
 
     }

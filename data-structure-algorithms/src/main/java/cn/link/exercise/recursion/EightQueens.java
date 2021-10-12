@@ -68,7 +68,7 @@ public class EightQueens {
 
         }
 
-        //如果全遍历了没满说明行不通
+        //如果全遍历了没满说明行不通,必然是false。。。都移除掉了
         return queenPositions.size() == 8;
 
     }
