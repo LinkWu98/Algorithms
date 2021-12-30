@@ -29,7 +29,7 @@ public class EightQueens {
     /**
      * 不同行：数组下标表示行，必然不是同一行
      * 不同列：遍历之前的元素，不能相等
-     * 不斜线：上一个元素 +1/-1 != 当前位置
+     * 不斜线：上n个元素 +n/-n != 当前位置
      *
      * @param possibilities  所有可能性
      * @param queenPositions 当前已有的皇后位置摆放

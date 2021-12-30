@@ -22,7 +22,7 @@ public class ShellSort {
 
         //外部循环：定义 gap
         for (int gap = arr.length / 2; gap > 0; gap /= 2) {
-            //内部循环：倒序遍历每组元素，小于前者，前者往后移动
+            //内部循环：倒序遍历每组元素(从第一组的第二个元素开始，往后根据步长不同，可能是第二组第二个元素，或是第一组的下个元素)，小于前者，前者往后移动
             for (int i = gap; i < arr.length; i++) {
                 //记录下当前的元素、下标，以便于后续替换，往前递减步长
                 int currentNum = arr[i];

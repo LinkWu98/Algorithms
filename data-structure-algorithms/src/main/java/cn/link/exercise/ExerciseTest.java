@@ -7,6 +7,9 @@ import cn.link.exercise.structure.GoogleHashtable;
 import cn.link.exercise.structure.Joseph;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * @author Link50
  * @version 1.0
@@ -98,5 +101,30 @@ public class ExerciseTest {
         System.out.println(employee == null ? "null" : employee.toString());
 
     }
+
+    @Test
+    public void testSort() {
+
+        Integer[] arr = {6, 3, 8, 1, 9, 0, 4, 2, 5, 7};
+        for (int gap = arr.length / 2; gap >= 1; gap /= 2) {
+
+            for (int i = gap; i < arr.length; i++) {
+
+                int currentNum = arr[i];
+                int currentIdx = i;
+                while ((currentIdx - gap) >= 0 && currentNum < arr[currentIdx - gap]) {
+
+                }
+
+            }
+
+        }
+
+
+
+        System.out.println(Arrays.asList(arr));
+
+    }
+
 
 }
