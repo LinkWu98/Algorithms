@@ -104,7 +104,6 @@ public class Tree<T> {
     public void infixOrder() {
 
         Stack<Node<T>> stack = new Stack<>();
-        stack.push(root);
         Node<T> node = root;
         while (node != null || stack.size() > 0) {
 
