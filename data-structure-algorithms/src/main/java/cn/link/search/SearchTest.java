@@ -3,6 +3,7 @@ package cn.link.search;
 import cn.link.common.ArrayUtil;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,6 +27,34 @@ public class SearchTest {
         int[] arr2 = new int[]{0, 1, 2, 3, 42, 51, 64, 71, 88, 90, 101, 102, 301};
         System.out.println(FibonacciSearch.search(arr2, 64));
 
+    }
+
+
+    public int[] shellSortTest(int[] arr) {
+
+        //控制步长
+        for (int gap = arr.length / 2; gap >= 1; gap /= 2) {
+            for (int i = gap; i < arr.length; i++) {
+                //按步长往前排序
+                int currentIdx = i;
+                int prevIdx;
+                int currentNum = arr[i];
+                while ((prevIdx = currentIdx - gap) >= 0 && currentNum < arr[prevIdx]) {
+                    arr[currentIdx] = arr[prevIdx];
+                    currentIdx -= gap;
+                }
+                arr[currentIdx] = currentNum;
+            }
+        }
+
+        return arr;
+
+    }
+
+    @Test
+    public void test() {
+        int[] arr = new int[]{8, 9, 1, 7, 2, 3, 5, 4, 6, 0};
+        System.out.println(Arrays.toString(shellSortTest(arr)));
     }
 
 }

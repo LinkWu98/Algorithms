@@ -22,19 +22,19 @@ public class ShellSort {
 
         //外部循环：定义 gap
         for (int gap = arr.length / 2; gap > 0; gap /= 2) {
-            //内部循环：倒序遍历每组元素(从第一组的第二个元素开始，往后根据步长不同，可能是第二组第二个元素，或是第一组的下个元素)，小于前者，前者往后移动
+            //内部循环：从右往左比较每组内的元素(arr[gap]元素开始，也就是第一组的第二个元素，按gap往前比较，小于前者，前者往后移动，继续比较)
             for (int i = gap; i < arr.length; i++) {
-                //记录下当前的元素、下标，以便于后续替换，往前递减步长
+                //记录下当前的元素、下标，以便于后续替换
                 int currentNum = arr[i];
                 int currentIdx = i;
-                while (currentIdx - gap >= 0 && arr[currentIdx - gap] > currentNum) {
-                    //前者往后移动一个步长
-                    arr[currentIdx] = arr[currentIdx - gap];
+                int lastIdx;
+                //上一个大于当前，替换
+                while ((lastIdx = currentIdx - gap) >= 0 && arr[lastIdx] > currentNum) {
+                    //上一个往后移动一个步长
+                    arr[currentIdx] = arr[lastIdx];
                     currentIdx -= gap;
                 }
-                if (currentIdx != i) {
-                    arr[currentIdx] = currentNum;
-                }
+                arr[currentIdx] = currentNum;
             }
         }
 
