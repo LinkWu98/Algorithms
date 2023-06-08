@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 数组、集合工具类
@@ -329,6 +330,21 @@ public class ArrayUtil {
         }
 
         System.out.println(sb.toString());
+
+    }
+
+    public static void swap(int[] arr, int idx1, int idx2) {
+
+        if (arr == null
+                || idx1 > arr.length - 1
+                || idx2 > arr.length - 1
+                || idx1 == idx2) {
+            return;
+        }
+
+        int temp = arr[idx1];
+        arr[idx1] = arr[idx2];
+        arr[idx2] = temp;
 
     }
 
