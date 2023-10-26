@@ -80,4 +80,25 @@ public class BinarySearch {
 
     }
 
+    /**
+     * 看上去简单点，返回查找的下标
+     */
+    public int binarySearchV2(int[] nums, int target) {
+        int start = 0;
+        int end = nums.length - 1;
+        //边界很重要，往左往右移动时，start可以等于end，此时是最后一轮比较
+        while (start <= end) {
+            int mid = start + ((end - start) / 2);
+            //主要就是控制边界移动，比target大往左、比target小往右移动
+            if (nums[mid] < target) {
+                start = mid + 1;
+            } else if (nums[mid] > target) {
+                end = mid - 1;
+            } else {
+                return mid;
+            }
+        }
+        return -1;
+    }
+
 }
